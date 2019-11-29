@@ -7,13 +7,13 @@ Unsupervised Language Model Pre-training for French
 **1. [FlauBERT](#FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;1.1. [FlauBERT-BASE](#FlauBERT-BASE)  
 &nbsp;&nbsp;&nbsp;&nbsp;1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)  
-**2. [Training Corpora](#Training%20Corpora)**  
+**2. [Training Corpora](#Training-Corpora)**  
 **3. [FLUE](#FLUE)**  
 &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural%20Language%20Inference)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency%20Parsing)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word%20Sense%20Disambiguation)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)  
 
 ## FlauBERT
 
