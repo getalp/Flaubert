@@ -7,8 +7,9 @@ Unsupervised Language Model Pre-training for French
 **1. [FlauBERT](#FauBERT)**  
       1.1. [FlauBERT-BASE](#FlauBERT-BASE)  
       1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)  
-**2. [Training Corpora](#Training%20Corpora)  
-**3. [FLUE](#FLUE)  
+**2. [Training Corpora](#Training%20Corpora)**  
+**3. [FLUE](#FLUE)**  
+      3.1. [Text classification](#Text%20classification)
 
 ## FlauBERT
 
