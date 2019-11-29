@@ -5,7 +5,7 @@ Unsupervised Language Model Pre-training for French
 
 # Table of Contents
 1. [FauBERT](#FauBERT)
-2. [Training Corpora](#Corpora)
+2. [Training Corpora](#Training%20Corpora)
 2. [FLUE](#FLUE)
 
 ## FauBERT
@@ -15,7 +15,7 @@ To
 
 ### FauBERT-LARGE
 
-## Corpora
+## Training Corpora
 
 ## FLUE
 A general benchmark for evaluating French natural language understanding systems
