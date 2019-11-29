@@ -4,8 +4,8 @@ Unsupervised Language Model Pre-training for French
 **Fully Avaialble soon**
 
 # Table of Contents
-- [FlauBERT](#FauBERT)
-  * [FlauBERT-BASE](#FlauBERT-BASE)
+1 [FlauBERT](#FauBERT)
+  1.1 [FlauBERT-BASE](#FlauBERT-BASE)
     
 2. [Training Corpora](#Training%20Corpora)
 
