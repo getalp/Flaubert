@@ -4,7 +4,13 @@ Unsupervised Language Model Pre-training for French
 **Fully Avaialble soon**
 
 # Table of Contents
-1. [FLUE](#FLUE)
+1. [FauBERT](#FauBERT)
+2. [FLUE](#FLUE)
+
+## FauBERT
+
+### Pre-trained FauBERT_{BASE}
+
 
 ## FLUE
 A general benchmark for evaluating French natural language understanding systems
