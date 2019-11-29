@@ -5,13 +5,17 @@ Unsupervised Language Model Pre-training for French
 
 # Table of Contents
 1. [FauBERT](#FauBERT)
+2. [Corpora](#Corpora)
 2. [FLUE](#FLUE)
 
 ## FauBERT
 
-### Pre-trained $FauBERT_{BASE}$
-$FauBERT_{BASE}$
+### FauBERT-BASE
+To 
 
+### FauBERT-LARGE
+
+## Corpora
 
 ## FLUE
 A general benchmark for evaluating French natural language understanding systems
