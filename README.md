@@ -4,33 +4,33 @@ Unsupervised Language Model Pre-training for French
 **Fully Avaialble soon**
 
 # Table of Contents
-1. [FauBERT](#FauBERT)
-    1.1. [FauBERT-BASE](#FauBERT-BASE)
+- [FlauBERT](#FauBERT)
+  * [FlauBERT-BASE](#FlauBERT-BASE)
     
 2. [Training Corpora](#Training%20Corpora)
 
 3. [FLUE](#FLUE)
 
-## FauBERT
+## FlauBERT
 
-### FauBERT-BASE
-To train FauBERT-BASE, use the following command
+### FlauBERT-BASE
+To train FlauBERT-BASE, use the following command
 
 ```bash
 TBD
 ```
 
-Pre-trained FauBERT-BASE is availalbe **TBD**
+Pre-trained FlauBERT-BASE is availalbe **TBD**
 
 ### FauBERT-LARGE
 
-To train FauBERT-LARGE, use the following command
+To train FlauBERT-LARGE, use the following command
 
 ```bash
 TBD
 ```
 
-Pre-trained FauBERT-LARGE is availalbe **TBD**
+Pre-trained FlauBERT-LARGE is availalbe **TBD**
 
 ## Training Corpora
 
@@ -40,12 +40,12 @@ A general benchmark for evaluating French natural language understanding systems
 ### Text classification
 The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress.
 
-To fine-tune FauBERT on the CLS dataset:
+To fine-tune FlauBERT on the CLS dataset:
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on the CLS dataset:
+To evaluate FlauBERT on the CLS dataset:
 ```bash
 TBD
 ```
@@ -54,12 +54,12 @@ TBD
 The Cross-lingual Adversarial dataset for Paraphrase Identification PAWS-X is publicly available and can be downloaded at [this](https://github.com/google-research-datasets/paws) adress.
 
 
-To fine-tune FauBERT on the PAWS-X dataset:
+To fine-tune FlauBERT on the PAWS-X dataset:
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on the PAWS-X dataset:
+To evaluate FlauBERT on the PAWS-X dataset:
 ```bash
 TBD
 ```
@@ -69,12 +69,12 @@ TBD
 The Cross-lingual Natural Language Inference Corpus (XNLI) corpus is publicly available and can be downloaded at [this](https://www.nyu.edu/projects/bowman/xnli/) adress.
 
 
-To fine-tune FauBERT on the XNLI corpus:
+To fine-tune FlauBERT on the XNLI corpus:
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on the XNLI corpus:
+To evaluate FlauBERT on the XNLI corpus:
 ```bash
 TBD
 ```
@@ -83,12 +83,12 @@ TBD
 The French Treebank collection is available on request. See [this](http://dokufarm.phil.hhu.de/spmrl2014/) adress to make a request. 
 
 
-To fine-tune FauBERT on the French Treebank collection:
+To fine-tune FlauBERT on the French Treebank collection:
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on the French Treebank collection:
+To evaluate FlauBERT on the French Treebank collection:
 ```bash
 TBD
 ```
@@ -97,12 +97,12 @@ TBD
 #### Verb Sense Disambiguation
 The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) adress.
 
-To fine-tune FauBERT on the FrenchSemEval:
+To fine-tune FlauBERT on the FrenchSemEval:
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on the FrenchSemEval:
+To evaluate FlauBERT on the FrenchSemEval:
 ```bash
 TBD
 ```
@@ -111,12 +111,12 @@ TBD
 The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) adress. 
 
 
-To fine-tune FauBERT on **TBD** (need short name for the dataset) :
+To fine-tune FlauBERT on **TBD** (need short name for the dataset) :
 ```bash
 TBD
 ```
 
-To evaluate FauBERT on **TBD** (need short name for the dataset):
+To evaluate FlauBERT on **TBD** (need short name for the dataset):
 ```bash
 TBD
 ```
