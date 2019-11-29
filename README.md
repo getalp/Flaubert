@@ -9,7 +9,7 @@ Unsupervised Language Model Pre-training for French
 
 ## FauBERT
 
-### Pre-trained FauBERT_{BASE}
+### Pre-trained $$FauBERT_{BASE}$$
 
 
 ## FLUE
