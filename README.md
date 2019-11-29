@@ -5,7 +5,7 @@ Unsupervised Language Model Pre-training for French
 
 # Table of Contents
 1. [FauBERT](#FauBERT)
-2. [Corpora](#Corpora)
+2. [Training Corpora](#Corpora)
 2. [FLUE](#FLUE)
 
 ## FauBERT
