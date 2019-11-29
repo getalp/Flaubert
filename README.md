@@ -11,9 +11,23 @@ Unsupervised Language Model Pre-training for French
 ## FauBERT
 
 ### FauBERT-BASE
-To 
+To train FauBERT-BASE, use the following command
+
+```bash
+TBD
+```
+
+Pre-trained FauBERT-BASE is availalbe **TBD**
 
 ### FauBERT-LARGE
+
+```bash
+TBD
+```
+
+```bash
+TBD
+```
 
 ## Training Corpora
 
