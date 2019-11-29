@@ -4,15 +4,15 @@ Unsupervised Language Model Pre-training for French
 **Fully Avaialble soon**
 
 # Table of Contents
-**1. [FlauBERT](#FauBERT)**  
+**1. [FlauBERT](#FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;1.1. [FlauBERT-BASE](#FlauBERT-BASE)  
 &nbsp;&nbsp;&nbsp;&nbsp;1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)  
 **2. [Training Corpora](#Training%20Corpora)**  
 **3. [FLUE](#FLUE)**  
-&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text classification](#Text%20classification)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text%20Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural%20Language%20Inference)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency parsing](#Constituency%20parsing)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency%20Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word%20Sense%20Disambiguation)  
 
 ## FlauBERT
@@ -26,7 +26,7 @@ TBD
 
 Pre-trained FlauBERT-BASE is availalbe **TBD**
 
-### FauBERT-LARGE
+### FlauBERT-LARGE
 
 To train FlauBERT-LARGE, use the following command
 
@@ -41,7 +41,7 @@ Pre-trained FlauBERT-LARGE is availalbe **TBD**
 ## FLUE
 A general benchmark for evaluating French natural language understanding systems
 
-### Text classification
+### Text Classification
 The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress.
 
 To fine-tune FlauBERT on the CLS dataset:
@@ -83,7 +83,7 @@ To evaluate FlauBERT on the XNLI corpus:
 TBD
 ```
 
-### Constituency parsing
+### Constituency Parsing
 The French Treebank collection is available on request. See [this](http://dokufarm.phil.hhu.de/spmrl2014/) adress to make a request. 
 
 
