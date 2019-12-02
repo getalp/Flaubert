@@ -84,7 +84,9 @@ TBD
 ```
 
 ### Constituency Parsing
-The French Treebank collection is available on request. See [this](http://dokufarm.phil.hhu.de/spmrl2014/) adress to make a request. 
+
+The French Treebank collection is freely availlable for research purposes.
+See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) to download the latest version of the corpus and sign the license, and [here](http://dokufarm.phil.hhu.de/spmrl2014/) to obtain the version of the corpus used for the experiments described in the paper.
 
 
 To fine-tune FlauBERT on the French Treebank collection:
