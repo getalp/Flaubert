@@ -109,10 +109,10 @@ TBD
 
 ### Constituency Parsing
 
-The French Treebank collection is freely availlable for research purposes.
+The French Treebank collection is freely available for research purposes.
 See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) to download the latest version of the corpus and sign the license, and [here](http://dokufarm.phil.hhu.de/spmrl2014/) to obtain the version of the corpus used for the experiments described in the paper.
 
-To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions here [https://github.com/mcoavoux/self-attentive-parser/blob/camembert/README_flaubert.md].
+To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions [here](https://github.com/mcoavoux/self-attentive-parser/blob/camembert/README_flaubert.md).
 
 Pretrained parsing models will be available soon!
 
