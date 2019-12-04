@@ -36,6 +36,30 @@ TBD
 
 Pre-trained FlauBERT-LARGE is availalbe **TBD**
 
+### Use FlauBERT with Hugging Face's transformers package
+
+To use FlauBERT-BASE with Hugging Face's transformers package, use the following lines of code:
+
+```python
+import torch
+from transformers import XLMModel, XLMTokenizer
+modelname=<path to Flaubert-BASE>
+flaubert, log = XLMModel.from_pretrained(modelname, output_loading_info=True)
+flaubert_tokenizer = XLMTokenizer.from_pretrained(modelname, do_lower_case=False)
+
+# this line is important: by default, XLMTokenizer removes diacritics, even with do_lower_case=False flag
+flaubert_tokenizer.do_lowercase_and_remove_accent = False
+
+sentence="Le chat mange une pomme."
+sentence_lower = sentence.lower()
+
+token_ids = torch.tensors([flaubert_tokenizer.encode(sentence_lower)])
+last_layer = flaubert(token_ids)[0]
+print(last_layer.shape)
+#torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
+```
+
+
 ## Training Corpora
 
 ## FLUE
@@ -88,7 +112,12 @@ TBD
 The French Treebank collection is freely availlable for research purposes.
 See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) to download the latest version of the corpus and sign the license, and [here](http://dokufarm.phil.hhu.de/spmrl2014/) to obtain the version of the corpus used for the experiments described in the paper.
 
+To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions here [https://github.com/mcoavoux/self-attentive-parser/blob/camembert/README_flaubert.md].
 
+Pretrained parsing models will be available soon!
+
+
+<!---
 To fine-tune FlauBERT on the French Treebank collection:
 ```bash
 TBD
@@ -98,6 +127,7 @@ To evaluate FlauBERT on the French Treebank collection:
 ```bash
 TBD
 ```
+-->
 
 ### Word Sense Disambiguation
 #### Verb Sense Disambiguation
