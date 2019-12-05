@@ -6,7 +6,8 @@ Unsupervised Language Model Pre-training for French
 # Table of Contents
 **1. [FlauBERT](#FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;1.1. [FlauBERT-BASE](#FlauBERT-BASE)  
-&nbsp;&nbsp;&nbsp;&nbsp;1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)
+&nbsp;&nbsp;&nbsp;&nbsp;1.3. [Use FlauBERT with Hugging Face's `transformers`](#Use-FlauBERT-with-Hugging-Face's-`transformers`)
 **2. [Training Corpora](#Training-Corpora)**  
 **3. [FLUE](#FLUE)**  
 &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
@@ -18,6 +19,7 @@ Unsupervised Language Model Pre-training for French
 ## FlauBERT
 
 ### FlauBERT-BASE
+
 To train FlauBERT-BASE, use the following command
 
 ```bash
@@ -36,15 +38,30 @@ TBD
 
 Pre-trained FlauBERT-LARGE is availalbe **TBD**
 
-### Use FlauBERT with Hugging Face's transformers package
+## Use FlauBERT with Hugging Face's `transformers`
 
-To use FlauBERT-BASE with Hugging Face's transformers package, use the following lines of code:
+A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3562902#.Xef0-i2ZN0s), in an archive named `xlm_bert_fra_base_lower.tar`.
+
+Setup:
+
+```bash
+wget https://zenodo.org/record/3562902/files/xlm_bert_fra_base_lower.tar
+tar xzf xlm_bert_fra_base_lower.tar
+```
+
+Then, you can use the following lines of code:
 
 ```python
 import torch
 from transformers import XLMModel, XLMTokenizer
-modelname=<path to Flaubert-BASE>
+modelname="xlm_bert_fra_base_lower" # Or absolute path to where you put the folder
+
+# Load model
 flaubert, log = XLMModel.from_pretrained(modelname, output_loading_info=True)
+# check import was successful, the dictionary should have empty lists as values
+print(log)
+
+# Load tokenizer
 flaubert_tokenizer = XLMTokenizer.from_pretrained(modelname, do_lower_case=False)
 
 # this line is important: by default, XLMTokenizer removes diacritics, even with do_lower_case=False flag
@@ -53,7 +70,7 @@ flaubert_tokenizer.do_lowercase_and_remove_accent = False
 sentence="Le chat mange une pomme."
 sentence_lower = sentence.lower()
 
-token_ids = torch.tensors([flaubert_tokenizer.encode(sentence_lower)])
+token_ids = torch.tensor([flaubert_tokenizer.encode(sentence_lower)])
 last_layer = flaubert(token_ids)[0]
 print(last_layer.shape)
 #torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
