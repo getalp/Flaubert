@@ -46,7 +46,7 @@ Setup:
 
 ```bash
 wget https://zenodo.org/record/3562902/files/xlm_bert_fra_base_lower.tar
-tar xzf xlm_bert_fra_base_lower.tar
+tar xf xlm_bert_fra_base_lower.tar
 ```
 
 Then, you can use the following lines of code:
