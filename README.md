@@ -38,7 +38,7 @@ TBD
 
 Pre-trained FlauBERT-LARGE is availalbe **TBD**
 
-## Use FlauBERT with Hugging Face's `transformers`
+### Use FlauBERT with Hugging Face's `transformers`
 
 A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3562902#.Xef0-i2ZN0s), in an archive named `xlm_bert_fra_base_lower.tar`.
 
