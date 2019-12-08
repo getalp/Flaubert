@@ -78,51 +78,152 @@ print(last_layer.shape)
 
 
 ## Training Corpora
+Coming soon.
 
 ## FLUE
 A general benchmark for evaluating French natural language understanding systems
 
+#### Install dependencies
+To preprocess data we need to clone [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
+```bash
+cd tools
+git clone https://github.com/glample/fastBPE.git
+git clone https://github.com/moses-smt/mosesdecoder.git
+```
+
 ### Text Classification
-The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress.
+In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
 
-To fine-tune FlauBERT on the CLS dataset:
-```bash
-TBD
+#### Download data
+<!-- The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress. -->
+Excecute the following command:
+```
+bash get-data-cls.sh $DATA_DIR
 ```
 
-To evaluate FlauBERT on the CLS dataset:
+#### Preprocess data
+<!-- The following command:
+```
+python extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed -outdir $DATA_DIR/processed
+``` 
+will split the training set into training and validation sets and save them to `$DATA_DIR/processed/[category]/[split].tsv`, where:
+- `[category]` is either `books` or `dvd` or `music`.
+- `[split]` is either `train` or `dev` or `test`. -->
+
+Run the following command:
+```bash
+bash prepare-data-cls.sh $DATA_DIR
+```
+
+#### Finetune on the CLS dataset
+To fine-tune and evaluate FlauBERT on the CLS dataset, we need to first install [Hugging Face's Transformers](https://github.com/huggingface/transformers) from their repo:
+```
+pip install git+https://github.com/huggingface/transformers.git --upgrade
+```
+
+To fine-tune, we use the finetuning script for GLUE benchmark from [Hugging Face's Transformers](https://github.com/huggingface/transformers):
+```
+python run_flue.py \
+  --model_type xlm \
+  --model_name_or_path xlm_bert_fra_base_lower \
+  --task_name SST-2 \
+  --do_train \
+  --do_eval \
+  --data_dir $DATA_DIR/processed/books
+  --max_seq_length 512 \
+  --per_gpu_train_batch_size 8 \
+  --learning_rate 5e-6 \
+  --num_train_epochs 30 \
+  --output_dir ./dumped \
+  --overwrite_output_dir \
+  --save_steps 10000 \
+  |& tee output.log
+```
+Replace `books` with the category you want (among `books, dvd, music`).
+<!-- To evaluate FlauBERT on the CLS dataset:
 ```bash
 TBD
-```
+``` -->
 
 ### Paraphrasing
-The Cross-lingual Adversarial dataset for Paraphrase Identification PAWS-X is publicly available and can be downloaded at [this](https://github.com/google-research-datasets/paws) adress.
+<!-- The Cross-lingual Adversarial dataset for Paraphrase Identification PAWS-X is publicly available and can be downloaded at [this](https://github.com/google-research-datasets/paws) adress. -->
 
-
-To fine-tune FlauBERT on the PAWS-X dataset:
+#### Download data
 ```bash
-TBD
+bash get-data-pawsx.sh $DATA_DIR
 ```
 
-To evaluate FlauBERT on the PAWS-X dataset:
+#### Preprocess data
 ```bash
-TBD
+bash prepare-data-pawsx.sh $DATA_DIR
 ```
 
+#### Finetune on the PAWS-X dataset
+To fine-tune and evaluate FlauBERT on the PAWS-X dataset:
+```
+python run_flue.py \
+  --model_type xlm \
+  --model_name_or_path xlm_bert_fra_base_lower \
+  --task_name MRPC \
+  --do_train \
+  --do_eval \
+  --data_dir $DATA_DIR/processed \ 
+  --max_seq_length 512 \
+  --per_gpu_train_batch_size 8 \
+  --learning_rate 5e-6 \
+  --num_train_epochs 30 \
+  --output_dir ./dumped \
+  --overwrite_output_dir \
+  --save_steps 10000 \
+  |& tee output.log
+```
+
+<!-- To evaluate FlauBERT on the PAWS-X dataset:
+```bash
+TBD
+``` -->
 
 ### Natural Language Inference
-The Cross-lingual Natural Language Inference Corpus (XNLI) corpus is publicly available and can be downloaded at [this](https://www.nyu.edu/projects/bowman/xnli/) adress.
+To fine-tune FlauBERT on the XNLI corpus, first download and extract `flaubert_base_lower.zip` from [here](https://zenodo.org/record/3562902#.Xe1hri2ZN0s). This file contains:
+- `flaubert_base_lower.pth`: FlauBERT's pretrained checkpoint.
+- `codes`: BPE codes learned on the training data.
+- `vocab`: Vocabulary file.
 
+<!-- The Cross-lingual Natural Language Inference Corpus (XNLI) corpus is publicly available and can be downloaded at [this](https://www.nyu.edu/projects/bowman/xnli/) adress. -->
+In the following, `$MODEL_DIR` denotes the above extracted folder.
 
-To fine-tune FlauBERT on the XNLI corpus:
+#### Downnload data
 ```bash
-TBD
+bash get-data-xnli.sh $DATA_DIR
 ```
 
-To evaluate FlauBERT on the XNLI corpus:
+#### Preprocess data
+```bash
+bash prepare-data-xnli.sh $DATA_DIR $MODEL_DIR
+```
+
+#### Finetune on the XNLI corpus
+
+```bash
+python flue_xnli.py \
+    --exp_name flaubert_base_lower_xnli \
+    --dump_path ./dumped  \
+    --model_path $MODEL_DIR/flaubert_base_lower.pth \
+    --data_path $DATA_DIR/processed  \
+    --dropout 0.1 \
+    --transfer_tasks FR-XNLI\
+    --optimizer_e adam,lr=0.000005 \
+    --optimizer_p adam,lr=0.000005 \
+    --finetune_layers "0:_1" \
+    --batch_size 8 \
+    --n_epochs 30 \
+    --epoch_size -1 \
+    --max_len 512
+``` 
+<!-- To evaluate FlauBERT on the XNLI corpus:
 ```bash
 TBD
-```
+``` -->
 
 ### Constituency Parsing
 
