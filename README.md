@@ -40,12 +40,12 @@ Pre-trained FlauBERT-LARGE is availalbe **TBD**
 
 ### Use FlauBERT with Hugging Face's `transformers`
 
-A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3562902#.Xef0-i2ZN0s), in an archive named `xlm_bert_fra_base_lower.tar`.
+A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
 
 Setup:
 
 ```bash
-wget https://zenodo.org/record/3562902/files/xlm_bert_fra_base_lower.tar
+wget https://zenodo.org/record/3567594/files/xlm_bert_fra_base_lower.tar
 tar xf xlm_bert_fra_base_lower.tar
 ```
 
@@ -184,7 +184,7 @@ TBD
 ``` -->
 
 ### Natural Language Inference
-To fine-tune FlauBERT on the XNLI corpus, first download and extract `flaubert_base_lower.zip` from [here](https://zenodo.org/record/3562902#.Xe1hri2ZN0s). This file contains:
+To fine-tune FlauBERT on the XNLI corpus, first download and extract `flaubert_base_lower.zip` from [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t). This file contains:
 - `flaubert_base_lower.pth`: FlauBERT's pretrained checkpoint.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: Vocabulary file.
