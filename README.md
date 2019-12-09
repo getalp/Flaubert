@@ -26,8 +26,6 @@ To train FlauBERT-BASE, use the following command
 TBD
 ```
 
-Pre-trained FlauBERT-BASE compatible with [hugging_face/transformers](https://github.com/huggingface/transformers) is availalbe at [this](https://filesender.renater.fr/?s=download&token=83bedf23-2925-9116-3c7d-10b3e14c5fef) adress.
-
 ### FlauBERT-LARGE
 
 To train FlauBERT-LARGE, use the following command
