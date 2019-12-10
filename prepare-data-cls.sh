@@ -1,5 +1,6 @@
 #! bin/bash
-# Hang Le (hangtp.le@gmail.com)
+# Copyright 2019 Hang Le
+# hangtp.le@gmail.com
 
 set -e
 

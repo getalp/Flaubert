@@ -20,27 +20,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)  
 
-## FlauBERT
+## Using FlauBERT
 
-### FlauBERT-BASE
-
-To train FlauBERT-BASE, use the following command
-
-```bash
-TBD
-```
-
-### FlauBERT-LARGE
-
-To train FlauBERT-LARGE, use the following command
-
-```bash
-TBD
-```
-
-Pre-trained FlauBERT-LARGE is availalbe **TBD**
-
-### Use FlauBERT with Hugging Face's `transformers`
+### Using FlauBERT with Hugging Face's `transformers`
 
 A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
 
@@ -79,19 +61,75 @@ print(last_layer.shape)
 ```
 
 
-## Training Corpora
-Coming soon.
+## Pretraining FlauBERT
 
-## FLUE
-A general benchmark for evaluating French natural language understanding systems
+### Training Corpora
 
-#### Install dependencies
-To preprocess data we need to clone [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
+#### Dependencies
+You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
 ```bash
+git clone https://github.com/getalp/Flaubert.git
 cd tools
+git clone https://github.com/attardi/wikiextractor.git
 git clone https://github.com/glample/fastBPE.git
 git clone https://github.com/moses-smt/mosesdecoder.git
 ```
+
+#### Data download and preprocessing
+In the following, replace `$DATA_DIR`, `$corpus_name` respetively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
+
+To download and preprocess the data, excecute the following commands:
+```bash
+./download.sh $DATA_DIR $corpus_name fr
+./preprocess.sh $DATA_DIR $corpus_name fr
+```
+
+For exammle:
+```bash
+./download.sh ~/data gutenberg fr
+./preprocess.sh ~/data gutenberg fr
+```
+
+The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, the second one processes them and save to `$DATA_DIR/processed/fr_gutenberg`.
+
+For most of the corpora you can also replace `fr` by another language (we may provide a more detailed documentation on this later).
+
+### Training
+Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https://github.com/facebookresearch/XLM#i-monolingual-language-model-pretraining-bert), with some modifications. You can use their code to train FlauBERT, it will work just fine.
+
+Execute the following command to train FlauBERT (base) on your preprocessed data:
+
+```python
+  python train.py \
+    --exp_name flaubert_base_lower \
+    --dump_path path/to/save/model \
+    --data_path path/to/data \
+    --lgs 'fr' \
+    --clm_steps '' \
+    --mlm_steps 'fr' \
+    --emb_dim 768 \
+    --n_layers 12 \
+    --n_heads 12 \
+    --dropout 0.1 \
+    --attention_dropout 0.1 \
+    --gelu_activation true \
+    --batch_size 16 \
+    --bptt 512 \
+    --optimizer "adam_inverse_sqrt,lr=0.0006,warmup_updates=24000,beta1=0.9,beta2=0.98,weight_decay=0.01,eps=0.000001" \
+    --epoch_size 300000 \
+    --max_epoch 100000 \
+    --validation_metrics _valid_fr_mlm_ppl \
+    --stopping_criterion _valid_fr_mlm_ppl,20 \
+    --fp16 true \
+    --accumulate_gradients 16 \
+    --word_mask_keep_rand '0.8,0.1,0.1' \
+    --word_pred '0.15'                      
+```
+
+<!-- Pre-trained FlauBERT-LARGE is availalbe **TBD** -->
+
+## Fine-tuning FlauBERT on the FLUE Benchmark
+FLUE (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. We describe below how to fine-tune FlauBERT on this benchmark.
 
 ### Text Classification
 In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
