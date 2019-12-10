@@ -6,7 +6,6 @@
  
  This repository is **still under construction** and everything will be available soon. 
 
-**Fully Avaialble soon**
 
 # Table of Contents
 **1. [FlauBERT](#FlauBERT)**  
