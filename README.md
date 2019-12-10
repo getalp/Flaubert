@@ -249,26 +249,10 @@ TBD
 #### Verb Sense Disambiguation
 The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) adress.
 
-To fine-tune FlauBERT on the FrenchSemEval:
-```bash
-TBD
-```
-
-To evaluate FlauBERT on the FrenchSemEval:
-```bash
-TBD
-```
+**Code coming soon**
 
 #### Noun Sense Disambiguation
 The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) adress. 
 
+**Code coming soon**
 
-To fine-tune FlauBERT on **TBD** (need short name for the dataset) :
-```bash
-TBD
-```
-
-To evaluate FlauBERT on **TBD** (need short name for the dataset):
-```bash
-TBD
-```
