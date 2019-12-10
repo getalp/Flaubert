@@ -8,11 +8,11 @@
 
 
 # Table of Contents
-**1. [FlauBERT](#FlauBERT)**  
-&nbsp;&nbsp;&nbsp;&nbsp;1.1. [FlauBERT-BASE](#FlauBERT-BASE)  
-&nbsp;&nbsp;&nbsp;&nbsp;1.2. [FlauBERT-LARGE](#FlauBERT-LARGE)  
+**1. [Using FlauBERT](#Using-FlauBERT)**   
 &nbsp;&nbsp;&nbsp;&nbsp;1.3. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
-**2. [Training Corpora](#Training-Corpora)**  
+**2. [Pretraining FlauBERT](#Pretraining-FlauBERT)**  
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#Data)  
+&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#Training)  
 **3. [FLUE](#FLUE)**  
 &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
@@ -63,7 +63,7 @@ print(last_layer.shape)
 
 ## Pretraining FlauBERT
 
-### Training Corpora
+### Data
 
 #### Dependencies
 You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
@@ -99,7 +99,7 @@ Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https:/
 
 Execute the following command to train FlauBERT (base) on your preprocessed data:
 
-```python
+```
   python train.py \
     --exp_name flaubert_base_lower \
     --dump_path path/to/save/model \
