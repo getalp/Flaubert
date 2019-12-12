@@ -303,7 +303,7 @@ The French Word Sense Disambiguation dataset used in our experiments is publicly
 ## Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1912.05372):
 
-```bash
+```
 @misc{le2019flaubert,
     title={FlauBERT: Unsupervised Language Model Pre-training for French},
     author={Hang Le and Loïc Vial and Jibril Frej and Vincent Segonne and Maximin Coavoux and Benjamin Lecouteux and Alexandre Allauzen and Benoît Crabbé and Laurent Besacier and Didier Schwab},
