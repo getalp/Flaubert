@@ -10,3 +10,5 @@ rm -rf $TARGET_DIRECTORY
 
 git clone $GIT_URL $TARGET_DIRECTORY
 
+$TARGET_DIRECTORY/java/compile.sh
+
