@@ -291,12 +291,12 @@ TBD
 
 ### Word Sense Disambiguation
 #### Verb Sense Disambiguation
-The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) adress.
+The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) address.
 
 **Code coming soon**
 
 #### Noun Sense Disambiguation
-The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) adress. 
+The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) address. 
 
 **Code coming soon**
 
