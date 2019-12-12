@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+URL_ROOT=https://zenodo.org/record/3549806/files
+
+URL_TO_SEMCOR=$URL_ROOT/semcor.fr.xml
+URL_TO_WNGT=$URL_ROOT/wngt.fr.xml
+URL_TO_SEMEVAL2013TASK12FR=$URL_ROOT/semeval2013task12.fr.xml
+
+TARGET_DIRECTORY="$(dirname "$0")"/corpus
+
+rm -rf $TARGET_DIRECTORY
+
+mkdir $TARGET_DIRECTORY
+
+wget $URL_TO_SEMCOR -P $TARGET_DIRECTORY
+wget $URL_TO_WNGT -P $TARGET_DIRECTORY
+wget $URL_TO_SEMEVAL2013TASK12FR -P $TARGET_DIRECTORY
+
