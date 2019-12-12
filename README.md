@@ -48,10 +48,7 @@ flaubert, log = XLMModel.from_pretrained(modelname, output_loading_info=True)
 print(log)
 
 # Load tokenizer
-flaubert_tokenizer = XLMTokenizer.from_pretrained(modelname, do_lower_case=False)
-
-# this line is important: by default, XLMTokenizer removes diacritics, even with do_lower_case=False flag
-flaubert_tokenizer.do_lowercase_and_remove_accent = False
+flaubert_tokenizer = XLMTokenizer.from_pretrained(modelname, do_lowercase_and_remove_accent=False)
 
 sentence="Le chat mange une pomme."
 sentence_lower = sentence.lower()
