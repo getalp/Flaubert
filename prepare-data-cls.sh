@@ -7,7 +7,7 @@ set -e
 # data paths
 DATA_DIR=$1
 
-python extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed -outdir $DATA_DIR/processed
+python extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed --outdir $DATA_DIR/processed
 
 category="books dvd music"
 
