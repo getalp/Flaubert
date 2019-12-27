@@ -221,6 +221,14 @@ def get_parser():
     parser.add_argument("--time_limit", type=float, default=-1,
                         help="Time to stop training in minute")
 
+    # LayerDrop (Fan et al. ICLR 2020)
+    parser.add_argument("--layerdrop", type=float, default=0.0,
+                        help="Layer-drop rate")
+    # Pre-norm vs post-norm
+    parser.add_argument("--pre-norm", help="Apply LayerNorm before sub-layers",
+                        action="store_true")
+    parser.add_argument("--layer-norm-eps", type=float, default=1e-6,
+                        help="Layer-norm epsilon")
     return parser
 
 

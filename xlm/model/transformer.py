@@ -9,6 +9,7 @@ from logging import getLogger
 import math
 import itertools
 import numpy as np
+import random
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -251,6 +252,11 @@ class TransformerModel(nn.Module):
         self.is_decoder = not is_encoder
         self.with_output = with_output
 
+        # LayerDrop and Pre-norm
+        self.layerdrop = params.layerdrop
+        self.pre_norm = params.pre_norm
+        self.layer_norm_eps = params.layer_norm_eps
+
         # dictionary / languages
         self.n_langs = params.n_langs
         self.n_words = params.n_words
@@ -279,7 +285,7 @@ class TransformerModel(nn.Module):
         if params.n_langs > 1 and self.use_lang_emb:
             self.lang_embeddings = Embedding(self.n_langs, self.dim)
         self.embeddings = Embedding(self.n_words, self.dim, padding_idx=self.pad_index)
-        self.layer_norm_emb = nn.LayerNorm(self.dim, eps=1e-12)
+        self.layer_norm_emb = nn.LayerNorm(self.dim, eps=self.layer_norm_eps)
 
         # transformer layers
         self.attentions = nn.ModuleList()
@@ -301,15 +307,15 @@ class TransformerModel(nn.Module):
 
         for layer_id in range(self.n_layers):
             self.attentions.append(MultiHeadAttention(self.n_heads, self.dim, dropout=self.attention_dropout))
-            self.layer_norm1.append(nn.LayerNorm(self.dim, eps=1e-12))
+            self.layer_norm1.append(nn.LayerNorm(self.dim, eps=self.layer_norm_eps))
             if self.is_decoder:
-                self.layer_norm15.append(nn.LayerNorm(self.dim, eps=1e-12))
+                self.layer_norm15.append(nn.LayerNorm(self.dim, eps=self.layer_norm_eps))
                 self.encoder_attn.append(MultiHeadAttention(self.n_heads, self.dim, dropout=self.attention_dropout))
             if ('%i_in' % layer_id) in self.memories:
                 self.ffns.append(None)
             else:
                 self.ffns.append(TransformerFFN(self.dim, self.hidden_dim, self.dim, dropout=self.dropout, gelu_activation=params.gelu_activation))
-            self.layer_norm2.append(nn.LayerNorm(self.dim, eps=1e-12))
+            self.layer_norm2.append(nn.LayerNorm(self.dim, eps=self.layer_norm_eps))
 
         # output layer
         if self.with_output:
@@ -390,26 +396,42 @@ class TransformerModel(nn.Module):
 
         # transformer layers
         for i in range(self.n_layers):
-
+            # LayerDrop
+            dropout_probability = random.uniform(0, 1)
+            if self.training and (dropout_probability <= self.layerdrop):
+                continue
             # self attention
-            attn = self.attentions[i](tensor, attn_mask, cache=cache)
-            attn = F.dropout(attn, p=self.dropout, training=self.training)
-            tensor = tensor + attn
-            tensor = self.layer_norm1[i](tensor)
-
+            if not self.pre_norm:
+                attn = self.attentions[i](tensor, attn_mask, cache=cache)
+                attn = F.dropout(attn, p=self.dropout, training=self.training)
+                tensor = tensor + attn
+                tensor = self.layer_norm1[i](tensor)
+            else:
+                tensor_normalized = self.layer_norm1[i](tensor)
+                attn = self.attentions[i](tensor_normalized, attn_mask, cache=cache)
+                attn = F.dropout(attn, p=self.dropout, training=self.training)
+                tensor = tensor + attn
+                
             # encoder attention (for decoder only)
             if self.is_decoder and src_enc is not None:
                 attn = self.encoder_attn[i](tensor, src_mask, kv=src_enc, cache=cache)
                 attn = F.dropout(attn, p=self.dropout, training=self.training)
                 tensor = tensor + attn
                 tensor = self.layer_norm15[i](tensor)
-
+            
             # FFN
-            if ('%i_in' % i) in self.memories:
-                tensor = tensor + self.memories['%i_in' % i](tensor)
+            if not self.pre_norm:
+                if ('%i_in' % i) in self.memories:
+                    tensor = tensor + self.memories['%i_in' % i](tensor)
+                else:
+                    tensor = tensor + self.ffns[i](tensor)
+                tensor = self.layer_norm2[i](tensor)
             else:
-                tensor = tensor + self.ffns[i](tensor)
-            tensor = self.layer_norm2[i](tensor)
+                tensor_normalized = self.layer_norm2[i](tensor)
+                if ('%i_in' % i) in self.memories:
+                    tensor = tensor + self.memories['%i_in' % i](tensor_normalized)
+                else:
+                    tensor = tensor + self.ffns[i](tensor_normalized)
 
             # memory
             if ('%i_after' % i) in self.memories:
