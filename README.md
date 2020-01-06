@@ -2,9 +2,9 @@
 
 **Flaubert** is a a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
- Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
+Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
- This repository is **still under construction** and everything will be available soon. 
+This repository is **still under construction** and everything will be available soon. 
 
 
 # Table of Contents
@@ -19,7 +19,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)  
-
 **4. [Citation](#Citation)**  
 
 ## Using FlauBERT
@@ -75,7 +74,7 @@ git clone https://github.com/moses-smt/mosesdecoder.git
 ```
 
 #### Data download and preprocessing
-In the following, replace `$DATA_DIR`, `$corpus_name` respetively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
+In the following, replace `$DATA_DIR`, `$corpus_name` respectively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
 
 To download and preprocess the data, excecute the following commands:
 ```bash
@@ -83,7 +82,7 @@ To download and preprocess the data, excecute the following commands:
 ./preprocess.sh $DATA_DIR $corpus_name fr
 ```
 
-For exammle:
+For example:
 ```bash
 ./download.sh ~/data gutenberg fr
 ./preprocess.sh ~/data gutenberg fr
