@@ -37,7 +37,7 @@ else
 fi
 
 # Tools paths
-TOOLS_PATH='tools'
+TOOLS_PATH='flue/tools'
 
 # Path to save data
 DATA_RAW=$DATA_DIR/raw/"$lg"_"$corpus"
