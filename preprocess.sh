@@ -31,7 +31,7 @@ DATA_PATH_CLEAN=$DATA_DIR/processed/"$lg"_"$corpus"
 output=$DATA_PATH_CLEAN/$lg.$corpus.processed.nc
 
 # Tools paths
-TOOLS_PATH='tools'
+TOOLS_PATH='flue/tools'
 
 # Tokenizer, cleaner and sentence splitter
 TOKENIZER=$TOOLS_PATH/tokenize.sh
