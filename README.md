@@ -292,9 +292,21 @@ The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.
 **Code coming soon**
 
 #### Noun Sense Disambiguation
-The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) address. 
 
-**Code coming soon**
+To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can follow the scripts located in the directory `flue/wsd/nouns`, which allow you to:
+- Automatically download our publicly available dataset from [this address](https://zenodo.org/record/3549806)
+  See the script `0.get_data.sh`
+- Download the `disambiguate` toolkit from [this repository](https://github.com/getalp/disambiguate)
+  See the script `1.get_toolkit.sh`
+- Prepare the training/development data from the French SemCor and French WordNet Gloss Corpus
+  See the script `2.prepare_data.sh`
+- Train the neural model
+  See the script `3.train_model.sh`
+- Evaluate the model on the French SemEval 2013 task 12 corpus
+  See the script `4.evaluate_model.sh
+  
+  Finally, you can disambiguate any text using the trained model and the script `5.disambiguate.sh`
+
 
 ## Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1912.05372):
