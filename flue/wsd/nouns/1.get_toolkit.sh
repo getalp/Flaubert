@@ -2,13 +2,17 @@
 
 set -e
 
-GIT_URL=git@github.com:getalp/disambiguate.git
+DISAMBIGUATE_GIT_URL=git@github.com:getalp/disambiguate.git
+UFSAC_GIT_URL=git@github.com:getalp/UFSAC.git
 
-TARGET_DIRECTORY="$(dirname "$0")"/disambiguate
+DISAMBIGUATE_TARGET_DIRECTORY="$(dirname "$0")"/disambiguate
+UFSAC_TARGET_DIRECTORY="$(dirname "$0")"/disambiguate/UFSAC
 
-rm -rf $TARGET_DIRECTORY
+rm -rf $DISAMBIGUATE_TARGET_DIRECTORY
+rm -rf $UFSAC_TARGET_DIRECTORY
 
-git clone $GIT_URL $TARGET_DIRECTORY
+git clone $GIT_URL $DISAMBIGUATE_TARGET_DIRECTORY
+git clone $UFSAC_GIT_URL $UFSAC_TARGET_DIRECTORY
 
-$TARGET_DIRECTORY/java/compile.sh
-
+$UFSAC_TARGET_DIRECTORY/java/install.sh
+$DISAMBIGUATE_TARGET_DIRECTORY/java/compile.sh
