@@ -1,6 +1,6 @@
 # Flaubert and FLUE
 
-**Flaubert** is a a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
+**Flaubert** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
 Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
@@ -9,7 +9,7 @@ This repository is **still under construction** and everything will be available
 
 # Table of Contents
 **1. [Using FlauBERT](#Using-FlauBERT)**   
-&nbsp;&nbsp;&nbsp;&nbsp;1.3. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.1. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
 **2. [Pretraining FlauBERT](#Pretraining-FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#Data)  
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#Training)  
