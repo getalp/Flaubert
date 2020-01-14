@@ -300,12 +300,12 @@ To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can fo
   See the script [1.get_toolkit.sh](flue/wsd/nouns/1.get_toolkit.sh)
 - Prepare the training/development data from the French SemCor and French WordNet Gloss Corpus  
   See the script [2.prepare_data.sh](flue/wsd/nouns/2.prepare_data.sh)
-- Train the neural model  
+- Train the neural model  (assumes that `$FLAUBERT_PATH` is the path to a Flaubert model) 
   See the script [3.train_model.sh](flue/wsd/nouns/3.train_model.sh)
 - Evaluate the model on the French SemEval 2013 task 12 corpus  
   See the script [4.evaluate_model.sh](flue/wsd/nouns/4.evaluate_model.sh)
   
-  Finally, you can disambiguate any text using the trained model and the script `5.disambiguate.sh`
+Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh)
 
 
 ## Citation
