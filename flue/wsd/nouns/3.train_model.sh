@@ -3,13 +3,12 @@
 set -e
 
 SCRIPT_PATH="$(dirname "$0")"/disambiguate/train.sh
-
 DATA_PATH="$(dirname "$0")"/prepared_data
 
-# TODO
 #FLAUBERT_PATH=
 
 TARGET_DIRECTORY="$(dirname "$0")"/model
+
 
 rm -rf $TARGET_DIRECTORY
 
