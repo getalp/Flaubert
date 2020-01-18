@@ -1,0 +1,10 @@
+.DS_Store
+.vscode/
+experiments/
+train.slurm
+submit_sequential_jobs_slurm.sh
+train_test.slurm
+UTILS
+use_flaubert_with_transformers/
+run-finetune.sh
+tests/
