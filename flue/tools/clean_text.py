@@ -49,6 +49,7 @@ def read_codepage(text, codepage='cp863'):
 
     return text
 
+
 def rm_spaces(text):
     """
     Remove multiple spaces

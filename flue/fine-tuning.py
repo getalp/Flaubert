@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """ Finetuning the library models for sequence classification on GLUE (Bert, XLM, XLNet, RoBERTa)."""
-
 from __future__ import absolute_import, division, print_function
 
 import argparse
@@ -23,7 +22,8 @@ import logging
 import os
 import random
 import json
-
+import sys
+sys.path.append(os.path.expanduser('~/transformers/src'))
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
@@ -53,13 +53,16 @@ from transformers import (WEIGHTS_NAME, BertConfig,
                                   AlbertForSequenceClassification, 
                                   AlbertTokenizer,
                                 )
-
 from transformers import AdamW, get_linear_schedule_with_warmup
 
 from transformers import glue_compute_metrics as compute_metrics
 from transformers import glue_output_modes as output_modes
 from transformers import glue_processors as processors
 from transformers import glue_convert_examples_to_features as convert_examples_to_features
+
+from transformers import FlaubertModel, FlaubertForSequenceClassification
+from transformers import FlaubertTokenizer
+from transformers import FlaubertConfig
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +75,8 @@ MODEL_CLASSES = {
     'xlm': (XLMConfig, XLMForSequenceClassification, XLMTokenizer),
     'roberta': (RobertaConfig, RobertaForSequenceClassification, RobertaTokenizer),
     'distilbert': (DistilBertConfig, DistilBertForSequenceClassification, DistilBertTokenizer),
-    'albert': (AlbertConfig, AlbertForSequenceClassification, AlbertTokenizer)
+    'albert': (AlbertConfig, AlbertForSequenceClassification, AlbertTokenizer),
+    'flaubert': (FlaubertConfig, FlaubertForSequenceClassification, FlaubertTokenizer)
 }
 
 

@@ -10,9 +10,9 @@ import csv
 import argparse
 
 from tools.clean_text import cleaner
+from xlm.utils import bool_flag
 
-
-def review_extractor(line, category='dvd'):
+def review_extractor(line, category='dvd', do_lower=False):
     """
     Extract review and label
     """
@@ -26,15 +26,18 @@ def review_extractor(line, category='dvd'):
 
     review_text = m.group(0)
 
+    if do_lower:
+        review_text = review_text.lower()
+
     return review_text, label
 
 
-def get_review_labels(line, category='dvd'):
+def get_review_labels(line, category='dvd', do_lower=False):
     """
     Input: line
     Returns cleaned review and label
     """
-    review_text, label = review_extractor(line, category=category)
+    review_text, label = review_extractor(line, category=category, do_lower=do_lower)
     review_text = cleaner(review_text, rm_new_lines=True)
 
     return review_text, label
@@ -43,8 +46,10 @@ def get_review_labels(line, category='dvd'):
 def main():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('--indir', type=str, help='Path to raw data directory')
-    parser.add_argument('--outdir', type=str, help='Path to raw data directory')
+    parser.add_argument('--indir', type=str, help='Path to raw data directory.')
+    parser.add_argument('--outdir', type=str, help='Path to processed data directory.')
+    parser.add_argument('--do_lower', type=bool_flag, default=False, help='True if do lower case, False otherwise.')
+    parser.add_argument('--val_ratio', type=float, default=0.2, help='Ratio to split data for validation.')
 
     args = parser.parse_args()
 
@@ -53,7 +58,7 @@ def main():
 
     categories = ['books', 'dvd', 'music']
     lang = 'fr'
-    val_ratio = 0.2
+    val_ratio = args.val_ratio
 
     for category in categories:
         print('-'*20)
@@ -72,7 +77,7 @@ def main():
                 for line in text.split('\n\n'):
                     if len(line) > 9:
                         i += 1
-                        review_text, label = get_review_labels(line, category=category)
+                        review_text, label = get_review_labels(line, category=category, do_lower=args.do_lower)
                         review_texts.append(review_text)
                         labels.append(label)
                         stats.append(len(review_text.split()))

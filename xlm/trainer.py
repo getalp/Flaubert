@@ -1,9 +1,12 @@
-# Copyright (c) 2019-present, Facebook, Inc.
-# All rights reserved.
-#
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
-#
+"""
+Modified by Hang Le
+The original copyright is appended below
+--
+Copyright (c) 2019-present, Facebook, Inc.
+All rights reserved.
+This source code is licensed under the license found in the
+LICENSE file in the root directory of this source tree.
+"""
 
 import os
 import math
@@ -60,8 +63,15 @@ class Trainer(object):
         assert params.amp >= 0 or params.accumulate_gradients == 1
         if params.multi_gpu and params.amp == -1:
             logger.info("Using nn.parallel.DistributedDataParallel ...")
+            find_unused_parameters = False
+            if params.layerdrop > 0.0:
+                find_unused_parameters = True
             for name in self.MODEL_NAMES:
-                setattr(self, name, nn.parallel.DistributedDataParallel(getattr(self, name), device_ids=[params.local_rank], output_device=params.local_rank, broadcast_buffers=True))
+                setattr(self, name, nn.parallel.DistributedDataParallel(getattr(self, name), 
+                                                                        device_ids=[params.local_rank], 
+                                                                        output_device=params.local_rank, 
+                                                                        broadcast_buffers=True,
+                                                                        find_unused_parameters=find_unused_parameters))
 
         # set optimizers
         self.set_optimizers()
@@ -70,10 +80,21 @@ class Trainer(object):
         if params.amp >= 0:
             self.init_amp()
             if params.multi_gpu:
-                logger.info("Using apex.parallel.DistributedDataParallel ...")
-                print('MODEL_NAMES={}'.format(self.MODEL_NAMES))
-                for name in self.MODEL_NAMES:
-                    setattr(self, name, apex.parallel.DistributedDataParallel(getattr(self, name), delay_allreduce=True))
+                if params.use_apex:
+                    logger.info("Using apex.parallel.DistributedDataParallel ...")
+                    for name in self.MODEL_NAMES:
+                        setattr(self, name, apex.parallel.DistributedDataParallel(getattr(self, name), delay_allreduce=True))
+                else:
+                    logger.info("Using nn.parallel.DistributedDataParallel ...")
+                    find_unused_parameters = False
+                    if params.layerdrop > 0.0:
+                        find_unused_parameters = True
+                    for name in self.MODEL_NAMES:
+                        setattr(self, name, nn.parallel.DistributedDataParallel(getattr(self, name), 
+                                                                            device_ids=[params.local_rank], 
+                                                                            output_device=params.local_rank, 
+                                                                            broadcast_buffers=True,
+                                                                            find_unused_parameters=find_unused_parameters))
 
         # stopping criterion used for early stopping
         if params.stopping_criterion != '':

@@ -7,6 +7,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+import os
 import json
 import random
 import argparse
@@ -217,10 +218,20 @@ def get_parser():
     parser.add_argument("--master_port", type=int, default=-1,
                         help="Master port (for multi-node SLURM jobs)")
 
-    # time limit to run sequential jobs in slurm
+    # Additional training parameters
     parser.add_argument("--time_limit", type=float, default=-1,
                         help="Time to stop training in minute")
+    parser.add_argument("--use_apex", type=bool_flag, default=True, 
+                        help="Use apex for multi-gpu training. Set False if using torch DDP.")
 
+    # LayerDrop (Fan et al. ICLR 2020)
+    parser.add_argument("--layerdrop", type=float, default=0.0,
+                        help="Layer-drop rate")
+    # Pre-norm vs post-norm
+    parser.add_argument("--pre-norm", type=bool_flag, default=False, 
+                        help="Apply LayerNorm before sub-layers")
+    parser.add_argument("--layer-norm-eps", type=float, default=1e-6,
+                        help="Layer-norm epsilon")
     return parser
 
 
@@ -273,8 +284,14 @@ def main(params):
     elapsed_time_last_three_epochs = deque(maxlen=3)
     logger.info('total_elapsed_time_until_now = {:2f} (min)'.format(total_elapsed_time_until_now))
 
+    # debug
+    # logger.info("os.environ['LD_LIBRARY_PATH'] = {}".format(os.environ['LD_LIBRARY_PATH']))
+    # logger.info("os.environ['PATH'] = {}".format(os.environ['PATH']))
+    
     # language model training
     for _ in range(params.max_epoch):
+        logger.info('Checking parameters - beginning of epoch: {:8f}'.format(sum(p.sum().item() for p in model.parameters())))
+
         start = time.time()
 
         logger.info("============ Starting epoch %i ... ============" % trainer.epoch)
@@ -339,6 +356,7 @@ def main(params):
         logger.info('elapsed_time_last_three_epochs = {}'.format(elapsed_time_last_three_epochs))
         logger.info('est_avg_time_each_epoch = {:.2f} (min)'.format(est_avg_time_each_epoch))
         logger.info('params.time_limit = {:2f} (min)'.format(params.time_limit))
+        logger.info('Checking parameters - end of epoch: {:8f}'.format(sum(p.sum().item() for p in model.parameters())))
 
         # Check running time
         if params.time_limit > 0:
