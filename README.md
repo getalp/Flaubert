@@ -2,14 +2,14 @@
 
 **Flaubert** is a a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
- Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
+Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
  This repository is **still under construction** and everything will be available soon. 
 
 
 # Table of Contents
 **1. [Using FlauBERT](#Using-FlauBERT)**   
-&nbsp;&nbsp;&nbsp;&nbsp;1.3. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.1. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
 **2. [Pretraining FlauBERT](#Pretraining-FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#Data)  
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#Training)  
@@ -99,7 +99,7 @@ Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https:/
 Execute the following command to train FlauBERT (base) on your preprocessed data:
 
 ```
-  python train.py \
+python train.py \
     --exp_name flaubert_base_lower \
     --dump_path path/to/save/model \
     --data_path path/to/data \
@@ -131,7 +131,7 @@ Execute the following command to train FlauBERT (base) on your preprocessed data
 FLUE (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. We describe below how to fine-tune FlauBERT on this benchmark.
 
 ### Text Classification
-In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
+In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task. `$do_lower` is `True` if using the lower case model, otherwise you should set it to `False`.
 
 #### Download data
 <!-- The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress. -->
@@ -151,7 +151,7 @@ will split the training set into training and validation sets and save them to `
 
 Run the following command:
 ```bash
-bash prepare-data-cls.sh $DATA_DIR
+bash prepare-data-cls.sh $DATA_DIR $do_lower
 ```
 
 #### Finetune on the CLS dataset

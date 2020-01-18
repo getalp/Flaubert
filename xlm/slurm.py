@@ -127,19 +127,15 @@ def init_distributed_mode(params):
         params.n_gpu_per_node = 1
 
     # sanity checks
-    print('sanity checks....')
     assert params.n_nodes >= 1
     assert 0 <= params.node_id < params.n_nodes
     assert 0 <= params.local_rank <= params.global_rank < params.world_size
     assert params.world_size == params.n_nodes * params.n_gpu_per_node
-    print('Finished sanity checks.')
 
     # define whether this is the master process / if we are in distributed mode
-    print('Define whether this is the master process / if we are in distributed mode... ')
     params.is_master = params.node_id == 0 and params.local_rank == 0
     params.multi_node = params.n_nodes > 1
     params.multi_gpu = params.world_size > 1
-    print('Finished line 137 - 139')
 
     # summary
     PREFIX = "%i - " % params.global_rank

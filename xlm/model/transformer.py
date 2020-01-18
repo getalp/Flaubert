@@ -7,6 +7,7 @@
 
 from logging import getLogger
 import math
+import time
 import itertools
 import numpy as np
 import random
@@ -253,9 +254,10 @@ class TransformerModel(nn.Module):
         self.with_output = with_output
 
         # LayerDrop and Pre-norm
-        self.layerdrop = params.layerdrop
-        self.pre_norm = params.pre_norm
-        self.layer_norm_eps = params.layer_norm_eps
+        self.layerdrop = params.get('layerdrop', 0.0)
+        self.pre_norm = params.get('pre_norm', False)
+        self.layer_norm_eps = params.get('layer_norm_eps', 1e-12)
+        logger.info('layerdrop - prenorm - layernorm eps: {} - {} - {}'.format(self.layerdrop, self.pre_norm, self.layer_norm_eps))
 
         # dictionary / languages
         self.n_langs = params.n_langs
@@ -395,11 +397,17 @@ class TransformerModel(nn.Module):
         tensor *= mask.unsqueeze(-1).to(tensor.dtype)
 
         # transformer layers
+        num_skips = 0
+        start = time.time()
         for i in range(self.n_layers):
+            input_tensor = tensor
             # LayerDrop
-            dropout_probability = random.uniform(0, 1)
-            if self.training and (dropout_probability <= self.layerdrop):
-                continue
+            # dropout_probability = random.uniform(0, 1)
+            # if self.training and (dropout_probability < self.layerdrop):
+            #     # logger.info('Skip layer {}'.format(i))
+            #     num_skips += 1
+            #     continue
+            
             # self attention
             if not self.pre_norm:
                 attn = self.attentions[i](tensor, attn_mask, cache=cache)
@@ -439,6 +447,11 @@ class TransformerModel(nn.Module):
             # TODO: add extra layer norm here?
 
             tensor *= mask.unsqueeze(-1).to(tensor.dtype)
+
+            if self.training and (random.uniform(0, 1) < self.layerdrop):
+                tensor = input_tensor + 0*tensor
+
+        # logger.info('{} layers took {}s'.format(self.n_layers - num_skips, time.time() - start))
 
         # update cache length
         if cache is not None:
