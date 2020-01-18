@@ -1,10 +1,10 @@
 # Flaubert and FLUE
 
-**Flaubert** is a a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
+**Flaubert** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
 Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
- This repository is **still under construction** and everything will be available soon. 
+This repository is **still under construction** and everything will be available soon. 
 
 
 # Table of Contents
@@ -19,7 +19,6 @@ Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems s
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)  
-
 **4. [Citation](#Citation)**  
 
 ## Using FlauBERT
@@ -75,7 +74,7 @@ git clone https://github.com/moses-smt/mosesdecoder.git
 ```
 
 #### Data download and preprocessing
-In the following, replace `$DATA_DIR`, `$corpus_name` respetively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
+In the following, replace `$DATA_DIR`, `$corpus_name` respectively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
 
 To download and preprocess the data, excecute the following commands:
 ```bash
@@ -83,7 +82,7 @@ To download and preprocess the data, excecute the following commands:
 ./preprocess.sh $DATA_DIR $corpus_name fr
 ```
 
-For exammle:
+For example:
 ```bash
 ./download.sh ~/data gutenberg fr
 ./preprocess.sh ~/data gutenberg fr
@@ -99,7 +98,7 @@ Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https:/
 Execute the following command to train FlauBERT (base) on your preprocessed data:
 
 ```
-python train.py \
+  python train.py \
     --exp_name flaubert_base_lower \
     --dump_path path/to/save/model \
     --data_path path/to/data \
@@ -131,7 +130,7 @@ python train.py \
 FLUE (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. We describe below how to fine-tune FlauBERT on this benchmark.
 
 ### Text Classification
-In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task. `$do_lower` is `True` if using the lower case model, otherwise you should set it to `False`.
+In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
 
 #### Download data
 <!-- The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress. -->
@@ -151,7 +150,7 @@ will split the training set into training and validation sets and save them to `
 
 Run the following command:
 ```bash
-bash prepare-data-cls.sh $DATA_DIR $do_lower
+bash prepare-data-cls.sh $DATA_DIR
 ```
 
 #### Finetune on the CLS dataset
@@ -293,9 +292,21 @@ The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.
 **Code coming soon**
 
 #### Noun Sense Disambiguation
-The French Word Sense Disambiguation dataset used in our experiments is publicly available and can be downloaded at [this](https://zenodo.org/record/3549806) address. 
 
-**Code coming soon**
+To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can follow the scripts located in the directory `flue/wsd/nouns`, which allow you to:
+- Automatically download our publicly available dataset from [this address](https://zenodo.org/record/3549806)  
+  → See the script [0.get_data.sh](flue/wsd/nouns/0.get_data.sh)
+- Download the `disambiguate` toolkit from [this repository](https://github.com/getalp/disambiguate)  
+  → See the script [1.get_toolkit.sh](flue/wsd/nouns/1.get_toolkit.sh)
+- Prepare the training/development data from the French SemCor and French WordNet Gloss Corpus  
+ → See the script [2.prepare_data.sh](flue/wsd/nouns/2.prepare_data.sh)
+- Train the neural model  (assumes that `$FLAUBERT_PATH` is the path to a Flaubert model)  
+  → See the script [3.train_model.sh](flue/wsd/nouns/3.train_model.sh)
+- Evaluate the model on the French SemEval 2013 task 12 corpus  
+  → See the script [4.evaluate_model.sh](flue/wsd/nouns/4.evaluate_model.sh)
+  
+Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh)
+
 
 ## Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1912.05372):
