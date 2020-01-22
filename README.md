@@ -40,18 +40,19 @@ After the installation you can use Flaubert in a native way:
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
-modelname = 'flaubert-base-cased' # You could choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
+# You could choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
+modelname = 'flaubert-base-cased' 
 
 flaubert, log = FlaubertModel.from_pretrained(modelname, output_loading_info=True)
 
 flaubert_tokenizer = FlaubertTokenizer.from_pretrained(modelname, do_lowercase=False) # do_lowercase=False if using the 'cased' model, otherwise it should be set to False
 
-sentence="Le chat mange une pomme."
+sentence = "Le chat mange une pomme."
 token_ids = torch.tensor([flaubert_tokenizer.encode(sentence)])
 
 last_layer = flaubert(token_ids)[0]
 print(last_layer.shape)
-#torch.Size([1, 8, 768])  -> (batch size x number of tokens x transformer dimension)
+#torch.Size([1, 8, 768])  -> (batch size x number of tokens x embedding dimension)
 ```
 
 <!-- A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
