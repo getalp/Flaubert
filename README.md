@@ -37,7 +37,6 @@ After the installation you can use Flaubert in a native way:
 
 ```bash
 import torch
-
 from transformers import FlaubertModel, FlaubertTokenizer
 
 modelname = 'flaubert-base-cased' # You could choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
