@@ -12,8 +12,8 @@ A leaderboard will be updated frequently [here](https://github.com/getalp/Flaube
 3. [Natural Language Inference](#3.-Natural-Language-Inference-(XNLI))  
 4. [Constituency Parsing](#4.-Constituency-Parsing)  
 5. [Word Sense Disambiguation](#5.-Word-Sense-Disambiguation)
-6. [Named Entity Recognition](#6.-Named-Entity-Recognition)
-7. [Question Answering](#7.-Question-Answering)
+<!-- 6. [Named Entity Recognition](#6.-Named-Entity-Recognition)
+7. [Question Answering](#7.-Question-Answering) -->
 
 In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task. Raw data is downloaded and saved to `$DATA_DIR/raw` by running the below command
 ```bash
@@ -296,12 +296,11 @@ To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can fo
   
 Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh)
 
-
-# 6. Named Entity Recognition
+<!-- # 6. Named Entity Recognition
 Coming soon.
 
 # 7. Question Answering
-Coming soon.
+Coming soon. -->
 
 
 # Citation
