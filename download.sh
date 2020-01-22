@@ -37,7 +37,7 @@ else
 fi
 
 # Tools paths
-TOOLS_PATH='flue/tools'
+TOOLS_PATH='tools'
 
 # Path to save data
 DATA_RAW=$DATA_DIR/raw/"$lg"_"$corpus"
@@ -115,6 +115,7 @@ elif [ "$cp" == "common_crawl" ]; then
         echo "Language not supported for the corpus $corpus." 
         rmdir $DATA_RAW
     fi
+
 else
     if [ "$link" == "cirrus" ]; then
         echo "Download data from cirrus dumps"

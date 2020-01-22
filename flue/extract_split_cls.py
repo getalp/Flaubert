@@ -8,9 +8,12 @@ import random
 import re
 import csv
 import argparse
+import sys
+sys.path.append(os.getcwd())
 
 from tools.clean_text import cleaner
 from xlm.utils import bool_flag
+
 
 def review_extractor(line, category='dvd', do_lower=False):
     """
@@ -20,7 +23,7 @@ def review_extractor(line, category='dvd', do_lower=False):
     label = 1 if int(float(m.group(0))) > 3 else 0 # rating == 3 are already removed
 
     if category == 'dvd':
-        m = re.search('(?<=\/url><text>)(.|\n|\t|\f)+', line)
+        m = re.search('(?<=\/url><text>)(.|\n|\t|\f)+(?=\<\/title><summary>)', line)
     else:
         m = re.search('(?<=\/url><text>)(.|\n|\t|\f)+(?=\<\/text><title>)', line)
 
@@ -48,8 +51,10 @@ def main():
     
     parser.add_argument('--indir', type=str, help='Path to raw data directory.')
     parser.add_argument('--outdir', type=str, help='Path to processed data directory.')
-    parser.add_argument('--do_lower', type=bool_flag, default=False, help='True if do lower case, False otherwise.')
+    parser.add_argument('--do_lower', type=bool_flag, default='False', help='True if do lower case, False otherwise.')
     parser.add_argument('--val_ratio', type=float, default=0.2, help='Ratio to split data for validation.')
+    parser.add_argument('--use_hugging_face', type=bool_flag, default='False', help='Prepare data to run fine-tuning using \
+                                                                                    Hugging Face Transformer library')
 
     args = parser.parse_args()
 
@@ -59,6 +64,10 @@ def main():
     categories = ['books', 'dvd', 'music']
     lang = 'fr'
     val_ratio = args.val_ratio
+
+    train_fname = 'train.tsv' if args.use_hugging_face else 'train_0.tsv' 
+    val_fname = 'dev.tsv' if args.use_hugging_face else 'valid_0.tsv' 
+    test_fname = 'test.tsv' if args.use_hugging_face else 'test_0.tsv'  
 
     for category in categories:
         print('-'*20)
@@ -91,9 +100,10 @@ def main():
                 os.makedirs(out_path)
 
             if s == 'test':
-                with open(os.path.join(out_path, 'test_0.tsv'), 'w') as f_out:
+                with open(os.path.join(out_path, test_fname), 'w') as f_out:
                     tsv_output = csv.writer(f_out, delimiter='\t')
-                    tsv_output.writerow(['Text', 'Label']) # write first line
+                    if args.use_hugging_face:
+                        tsv_output.writerow(['Text', 'Label']) # write first line
                     for idx, line in enumerate(review_texts):
                         tsv_output.writerow([line, labels[idx]])
 
@@ -117,15 +127,17 @@ def main():
                 random.shuffle(train_ids)
                 random.shuffle(val_ids)
                 
-                with open(os.path.join(out_path, 'train_0.tsv'), 'w') as f_out:
+                with open(os.path.join(out_path, train_fname), 'w') as f_out:
                     tsv_output = csv.writer(f_out, delimiter='\t')
-                    tsv_output.writerow(['Text', 'Label']) # write first line
+                    if args.use_hugging_face:
+                        tsv_output.writerow(['Text', 'Label']) # write first line
                     for idx in train_ids:
                         tsv_output.writerow([review_texts[idx], labels[idx]])
 
-                with open(os.path.join(out_path, 'dev_0.tsv'), 'w') as f_out:
+                with open(os.path.join(out_path, val_fname), 'w') as f_out:
                     tsv_output = csv.writer(f_out, delimiter='\t')
-                    tsv_output.writerow(['Text', 'Label']) # write first line
+                    if args.use_hugging_face:
+                        tsv_output.writerow(['Text', 'Label']) # write first line
                     for idx in val_ids:
                         tsv_output.writerow([review_texts[idx], labels[idx]])
 

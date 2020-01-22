@@ -8,24 +8,55 @@ This repository is **still under construction** and everything will be available
 
 
 # Table of Contents
-**1. [Using FlauBERT](#Using-FlauBERT)**   
-&nbsp;&nbsp;&nbsp;&nbsp;1.1. [Use FlauBERT with Hugging Face's `transformers`](#use-flaubert-with-hugging-faces-transformers)  
-**2. [Pretraining FlauBERT](#Pretraining-FlauBERT)**  
-&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#Data)  
-&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#Training)  
-**3. [FLUE](#FLUE)**  
-&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
+**1. [Using FlauBERT](#1.-Using-FlauBERT)**   
+&nbsp;&nbsp;&nbsp;&nbsp;1.1. [Using FlauBERT with Hugging Face's `transformers`](#1.1.-Using-FlauBERT-with-Hugging-Face's-`transformers`)   
+&nbsp;&nbsp;&nbsp;&nbsp;1.2. [Using FlauBERT with Facebook XLM's repository](#1.2.-Using-FlauBERT-with-Facebook-XLM's-repository)  
+**2. [Pretraining FlauBERT](#2.-Pretraining-FlauBERT)**  
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#2.1.-Data)  
+&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#2.2.-Training)  
+**3. [FLUE](#3.-FLUE)**  
+<!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)  
-**4. [Citation](#Citation)**  
+&nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)   -->
+**4. [Citation](#4.-Citation)**  
 
-## Using FlauBERT
+# 1. Using FlauBERT
 
-### Using FlauBERT with Hugging Face's `transformers`
+## 1.1. Using FlauBERT with Hugging Face's `transformers`
 
-A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
+First, you need to install a `transformers` version that contains Flaubert. At the time of writing this has not been integrated into the official Hugging Face’s repo yet so you would need to install it from our fork:
+
+```
+pip install --upgrade --force-reinstall git+https://github.com/formiel/transformers.git
+```
+(We will make sure to keep this fork up-to-date with the original `transformers` master branch.)
+
+After the installation you can now use Flaubert in a native way:
+
+```bash
+import torch
+import sys
+sys.path.append(os.path.expanduser('~/transformers/src')) # path to where you saved the forked repo
+
+from transformers import FlaubertModel, FlaubertTokenizer
+
+modelname = 'flaubert-base-cased' # You could choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
+
+flaubert, log = FlaubertModel.from_pretrained(modelname, output_loading_info=True)
+
+flaubert_tokenizer = FlaubertTokenizer.from_pretrained(modelname, do_lowercase=False) # do_lowercase=False if using the 'cased' model, otherwise it should be set to False
+
+sentence="Le chat mange une pomme."
+token_ids = torch.tensor([flaubert_tokenizer.encode(sentence)])
+
+last_layer = flaubert(token_ids)[0]
+print(last_layer.shape)
+#torch.Size([1, 8, 768])  -> (batch size x number of tokens x transformer dimension)
+```
+
+<!-- A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
 
 Setup:
 
@@ -56,21 +87,29 @@ token_ids = torch.tensor([flaubert_tokenizer.encode(sentence_lower)])
 last_layer = flaubert(token_ids)[0]
 print(last_layer.shape)
 #torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
-```
+``` -->
 
+## 1.2. Using FlauBERT with Facebook XLM's repository
+Please refer to the pre-training section and fine-tuning examples in FLUE.
 
-## Pretraining FlauBERT
+# 2. Pretraining FlauBERT
 
-### Data
+## 2.1. Data
 
 #### Dependencies
 You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
 ```bash
 git clone https://github.com/getalp/Flaubert.git
+
+# Install toolkit
 cd tools
 git clone https://github.com/attardi/wikiextractor.git
 git clone https://github.com/glample/fastBPE.git
 git clone https://github.com/moses-smt/mosesdecoder.git
+cd fastBPE
+g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
+cd ..
+cd ..
 ```
 
 #### Data download and preprocessing
@@ -92,13 +131,13 @@ The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, th
 
 For most of the corpora you can also replace `fr` by another language (we may provide a more detailed documentation on this later).
 
-### Training
+## 2.2. Training
 Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https://github.com/facebookresearch/XLM#i-monolingual-language-model-pretraining-bert), with some modifications. You can use their code to train FlauBERT, it will work just fine.
 
 Execute the following command to train FlauBERT (base) on your preprocessed data:
 
-```
-  python train.py \
+```bash
+python train.py \
     --exp_name flaubert_base_lower \
     --dump_path path/to/save/model \
     --data_path path/to/data \
@@ -124,33 +163,22 @@ Execute the following command to train FlauBERT (base) on your preprocessed data
     --word_pred '0.15'                      
 ```
 
-<!-- Pre-trained FlauBERT-LARGE is availalbe **TBD** -->
-
-## Fine-tuning FlauBERT on the FLUE Benchmark
+# 3. FLUE
 FLUE (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. We describe below how to fine-tune FlauBERT on this benchmark.
 
-### Text Classification
+<!-- ### Text Classification
 In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
 
 #### Download data
-<!-- The Cross-Lingual Sentiment CLS dataset is publicly available and can be downloaded at [this](https://webis.de/data/webis-cls-10.html) adress. -->
 Excecute the following command:
 ```
-bash get-data-cls.sh $DATA_DIR
+bash flue/get-data-cls.sh $DATA_DIR
 ```
 
 #### Preprocess data
-<!-- The following command:
-```
-python extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed -outdir $DATA_DIR/processed
-``` 
-will split the training set into training and validation sets and save them to `$DATA_DIR/processed/[category]/[split].tsv`, where:
-- `[category]` is either `books` or `dvd` or `music`.
-- `[split]` is either `train` or `dev` or `test`. -->
-
 Run the following command:
 ```bash
-bash prepare-data-cls.sh $DATA_DIR
+bash flue/prepare-data-cls.sh $DATA_DIR
 ```
 
 #### Finetune on the CLS dataset
@@ -178,13 +206,8 @@ python run_flue.py \
   |& tee output.log
 ```
 Replace `books` with the category you want (among `books, dvd, music`).
-<!-- To evaluate FlauBERT on the CLS dataset:
-```bash
-TBD
-``` -->
 
 ### Paraphrasing
-<!-- The Cross-lingual Adversarial dataset for Paraphrase Identification PAWS-X is publicly available and can be downloaded at [this](https://github.com/google-research-datasets/paws) adress. -->
 
 #### Download data
 ```bash
@@ -216,11 +239,6 @@ python run_flue.py \
   |& tee output.log
 ```
 
-<!-- To evaluate FlauBERT on the PAWS-X dataset:
-```bash
-TBD
-``` -->
-
 ### Natural Language Inference
 To fine-tune FlauBERT on the XNLI corpus, first download and extract `flaubert_base_lower.zip` from [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t). This file contains:
 - `flaubert_base_lower.pth`: FlauBERT's pretrained checkpoint.
@@ -228,7 +246,7 @@ To fine-tune FlauBERT on the XNLI corpus, first download and extract `flaubert_b
 - `vocab`: Vocabulary file.
 
 <!-- The Cross-lingual Natural Language Inference Corpus (XNLI) corpus is publicly available and can be downloaded at [this](https://www.nyu.edu/projects/bowman/xnli/) adress. -->
-In the following, `$MODEL_DIR` denotes the above extracted folder.
+<!-- In the following, `$MODEL_DIR` denotes the above extracted folder.
 
 #### Downnload data
 ```bash
@@ -263,14 +281,14 @@ python flue_xnli.py \
 TBD
 ``` -->
 
-### Constituency Parsing
+<!-- ### Constituency Parsing
 
 The French Treebank collection is freely available for research purposes.
 See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) to download the latest version of the corpus and sign the license, and [here](http://dokufarm.phil.hhu.de/spmrl2014/) to obtain the version of the corpus used for the experiments described in the paper.
 
-To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions [here](https://github.com/mcoavoux/self-attentive-parser).
+To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions [here](https://github.com/mcoavoux/self-attentive-parser). -->
 
-Pretrained parsing models will be available soon!
+<!-- Pretrained parsing models will be available soon! -->
 
 
 <!---
@@ -285,7 +303,7 @@ TBD
 ```
 -->
 
-### Word Sense Disambiguation
+<!-- ### Word Sense Disambiguation
 #### Verb Sense Disambiguation
 The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) address.
 
@@ -305,11 +323,11 @@ To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can fo
 - Evaluate the model on the French SemEval 2013 task 12 corpus  
   → See the script [4.evaluate_model.sh](flue/wsd/nouns/4.evaluate_model.sh)
   
-Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh)
+Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh) -->
 
 
-## Citation
-If you use FlauBERT or the FLUE Benchmark for your scientific publication, please refer to our [paper](https://arxiv.org/abs/1912.05372):
+# 4. Citation
+If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you found the resources in this repository useful, please refer to our [paper](https://arxiv.org/abs/1912.05372):
 
 ```
 @misc{le2019flaubert,

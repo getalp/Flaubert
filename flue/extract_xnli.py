@@ -9,17 +9,21 @@ import re
 import csv
 import argparse
 
+import sys
+sys.path.append(os.getcwd())
+
 from tools.clean_text import cleaner
+from xlm.utils import bool_flag
 
 
-def get_labels(line):
+def get_labels(line, do_lower=False):
     """
     Input: line
     Returns pairs of sentences and corresponding labels
     """
     sent1, sent2, label = line.split('\t')
-    sent1 = cleaner(sent1, rm_new_lines=True)
-    sent2 = cleaner(sent2, rm_new_lines=True)
+    sent1 = cleaner(sent1, rm_new_lines=True, do_lower=do_lower)
+    sent2 = cleaner(sent2, rm_new_lines=True, do_lower=do_lower)
     sent_pair = '\t'.join([sent1, sent2])
     label = label.strip()
 
@@ -29,7 +33,8 @@ def get_labels(line):
 def main():
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('--indir', type=str, help='Path to raw data directory')
+    parser.add_argument('--indir', type=str, help='Path to processed data directory')
+    parser.add_argument('--do_lower', type=bool_flag, default='False', help='True if do lower case, False otherwise.')
 
     args = parser.parse_args()
 
@@ -47,7 +52,7 @@ def main():
             with open(os.path.join(path, '{}_0.xlm.tsv'.format(s)), 'w') as f_out:
                 tsv_output = csv.writer(f_out, delimiter='\t')
                 for line in f_in:
-                    sent_pair, label = get_labels(line)
+                    sent_pair, label = get_labels(line, do_lower=args.do_lower)
                     sent_pairs.append(sent_pair)
                     labels.append(label)
 

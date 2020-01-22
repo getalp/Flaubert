@@ -4,34 +4,51 @@
 
 set -e
 
-# data paths
+# Input parameters
 DATA_DIR=$1
-do_lower=$2
+MODEL_DIR=$2
+do_lower=$3
+
+# Check number of arguments
+if [ $# -eq 3 ]
+then
+    echo "Running script ..."
+else
+    echo "3 arguments must be provided!"
+    exit 1
+fi
 
 # Extract reviews and labels and split train set into train and validation sets
-python extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed --outdir $DATA_DIR/processed --do_lower $do_lower
+python flue/extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed --outdir $DATA_DIR/processed --do_lower $do_lower
 
 category="books dvd music"
 
-DATA_PATH=$DATA_DIR/processed
-TOKENIZER=tools/tokenize.sh
+TOKENIZER=./tools/tokenize.sh
+FASTBPE=./tools/fastBPE/fast
 chmod +x $TOKENIZER
+chmod +x $FASTBPE
+
+CODES_PATH=$MODEL_DIR/codes
+VOCAB_PATH=$MODEL_DIR/vocab
 
 for cat in $category; do
-    ## Clean text
-    for split in train dev test; do
-        if [ ! -f $DATA_PATH/$cat/${split}.tsv ]; then
-            awk -F '\t' '{ print $1}' $DATA_PATH/$cat/${split}_0.tsv \
+    for split in train valid test; do
+        if [ ! -f $DATA_DIR/processed/$cat/${split}.tsv ]; then
+            awk -F '\t' '{ print $1}' $DATA_DIR/processed/$cat/${split}_0.tsv \
             | $TOKENIZER 'fr' \
-            > $DATA_PATH/$cat/${split}.x
+            > $DATA_DIR/processed/$cat/${split}.x
 
-            awk -F '\t' '{ print $2}' $DATA_PATH/$cat/${split}_0.tsv \
-            > $DATA_PATH/$cat/${split}.y
+            awk -F '\t' '{ print $2}' $DATA_DIR/processed/$cat/${split}_0.tsv \
+            > $DATA_DIR/processed/$cat/${split}.label
 
-            paste $DATA_PATH/$cat/${split}.x $DATA_PATH/$cat/${split}.y > $DATA_PATH/$cat/${split}.tsv
-            rm $DATA_PATH/$cat/${split}_0.tsv $DATA_PATH/$cat/${split}.x $DATA_PATH/$cat/${split}.y
+            $FASTBPE applybpe $DATA_DIR/processed/$cat/${split}.s1 $DATA_DIR/processed/$cat/${split}.x $CODES_PATH
+            python preprocess.py $VOCAB_PATH $DATA_DIR/processed/$cat/$split.s1
 
-            echo "Finished processing ${split} and saved to $DATA_PATH."
+            paste $DATA_DIR/processed/$cat/${split}.x $DATA_DIR/processed/$cat/${split}.label > $DATA_DIR/processed/$cat/${split}.tsv
+
+            rm $DATA_DIR/processed/$cat/${split}_0.tsv $DATA_DIR/processed/$cat/${split}.x
+
+            echo "Finished processing ${split} and saved to $DATA_DIR/processed/$cat."
         else
         echo 'Data has already been processed.'
         fi

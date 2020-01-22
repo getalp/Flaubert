@@ -11,8 +11,9 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 
-import os
+import os, sys
 import argparse
+sys.path.append(os.getcwd())
 
 from xlm.utils import bool_flag, initialize_exp
 from xlm.evaluation.glue import GLUE

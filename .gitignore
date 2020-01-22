@@ -1,4 +1,4 @@
-.DS_Store
+*.DS_Store
 .vscode/
 experiments/
 train.slurm
@@ -8,3 +8,6 @@ UTILS
 use_flaubert_with_transformers/
 run-finetune.sh
 tests/
+flue/experiments_flue/
+*.pyc
+flue/.DS_Store

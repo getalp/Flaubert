@@ -15,21 +15,32 @@
 # This script is meant to prepare data to reproduce XNLI experiments
 # Just modify the "code" and "vocab" path for your own model
 #
+# Input parameters
 DATA_DIR=$1
 MODEL_DIR=$2
+do_lower=$3
+
+# Check number of arguments
+if [ $# -eq 3 ]
+then
+    echo "Running script ..."
+else
+    echo "3 arguments must be provided!"
+    exit 1
+fi
 
 DATA_PATH=$DATA_DIR/processed
 
-python extract_xnli.py --indir $DATA_PATH
+python flue/extract_xnli.py --indir $DATA_PATH --do_lower $do_lower
 
 set -e
 lg=fr
 
 # data paths
-FASTBPE=tools/fastBPE/fast
-TOKENIZER=tools/tokenize.sh
-
-mkdir -p $DATA_PATH
+TOKENIZER=./tools/tokenize.sh
+FASTBPE=./tools/fastBPE/fast
+chmod +x $TOKENIZER
+chmod +x $FASTBPE
 
 CODES_PATH=$MODEL_DIR/codes
 VOCAB_PATH=$MODEL_DIR/vocab
@@ -38,13 +49,11 @@ VOCAB_PATH=$MODEL_DIR/vocab
 for split in train valid test; do
     awk -F '\t' '{ print $1}' $DATA_PATH/${split}_0.xlm.tsv \
     | awk '{gsub(/\"/,"")};1' \
-    | sed -e 's/\(.*\)/\L\1/' \
     | $TOKENIZER $lg \
     > $DATA_PATH/${split}.x1
 
     awk -F '\t' '{ print $2}' $DATA_PATH/${split}_0.xlm.tsv \
     | awk '{gsub(/\"/,"")};1' \
-    | sed -e 's/\(.*\)/\L\1/' \
     | $TOKENIZER $lg \
     > $DATA_PATH/${split}.x2
 

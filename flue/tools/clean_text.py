@@ -70,7 +70,7 @@ def process_url_html(text):
     return text
 
 
-def cleaner(text, rm_new_lines=False):
+def cleaner(text, rm_new_lines=False, do_lower=False):
     """
     Clean up an input text
     """
@@ -91,6 +91,9 @@ def cleaner(text, rm_new_lines=False):
 
     # remove multiple spaces in text
     text = rm_spaces(text)
+
+    if do_lower:
+        text = text.lower()
 
     return text
 
