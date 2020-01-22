@@ -90,11 +90,11 @@ python flue/flue_xnli.py --exp_name $exp_name \
 ```
 
 ### b. Finetuning FlauBERT with Hugging Face's transformers library
-You should clone our Transformer repo forked from [Hugging Face's Transformer](https://github.com/huggingface/transformers), in which we added our Flaubert's classes. We will update the instructions when our model is integrated into official Hugging Face's Transformer library.
+You should follow the instructions [here](https://github.com/getalp/Flaubert#11-using-flaubert-with-hugging-faces-transformers) to clone our Transformer repo forked from [Hugging Face's Transformer](https://github.com/huggingface/transformers), in which we added our Flaubert's classes. We will update the instructions when our model is integrated into official Hugging Face's Transformer library.
 
-```bash
+<!-- ```bash
 pip install git+https://github.com/formiel/transformers.git --upgrade
-```
+``` -->
 
 #### Preprocess data
 Run the below command to prepare data for finetuning. The tokenization (Moses and BPE) is handled later using `FlaubertTokenizer` class in the fine-tuning script.
