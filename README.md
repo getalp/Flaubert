@@ -15,12 +15,13 @@ This repository is **still under construction** and everything will be available
 &nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#2.1.-Data)  
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#2.2.-Training)  
 **3. [Fine-tuning FlauBERT on the FLUE benchmark](#3.-Fine-tuning-FlauBERT-on-the-FLUE-benchmark)**  
+**4. [Citation](#4.-Citation)** 
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)   -->
-**4. [Citation](#4.-Citation)**  
+ 
 
 # 1. Using FlauBERT
 
