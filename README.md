@@ -2,7 +2,7 @@
 
 **Flaubert** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
-Along with Flaubert comes **FLUE**: an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
+Along with Flaubert comes [**FLUE**](https://github.com/getalp/Flaubert/tree/master/flue): an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
 This repository is **still under construction** and everything will be available soon. 
 
@@ -14,7 +14,7 @@ This repository is **still under construction** and everything will be available
 **2. [Pretraining FlauBERT](#2.-Pretraining-FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#2.1.-Data)  
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#2.2.-Training)  
-**3. [FLUE](#3.-FLUE)**  
+**3. [Fine-tuning FlauBERT on the FLUE benchmark](#3.-Fine-tuning-FlauBERT-on-the-FLUE-benchmark)**  
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
@@ -161,8 +161,8 @@ python train.py \
     --word_pred '0.15'                      
 ```
 
-# 3. FLUE
-FLUE (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. We describe below how to fine-tune FlauBERT on this benchmark.
+# 3. Fine-tuning FlauBERT on the FLUE benchmark
+[FLUE](https://github.com/getalp/Flaubert/tree/master/flue) (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. Please refer to [this page](https://github.com/getalp/Flaubert/tree/master/flue) for an example of fine-tuning FlauBERT on this benchmark.
 
 <!-- ### Text Classification
 In the following, you should replace `$DATA_DIR` with a location on your computer, e.g. `~/data/cls`, `~/data/pawsx`, `~/data/xnli`, etc. depending on the task.
