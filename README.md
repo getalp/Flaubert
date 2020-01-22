@@ -87,7 +87,7 @@ print(last_layer.shape)
 ``` -->
 
 ## 1.2. Using FlauBERT with Facebook XLM's repository
-Please refer to the pre-training section and fine-tuning examples in FLUE.
+Please refer to the pre-training section and fine-tuning examples in [FLUE](https://github.com/getalp/Flaubert/tree/master/flue).
 
 # 2. Pretraining FlauBERT
 
