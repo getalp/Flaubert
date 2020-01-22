@@ -33,12 +33,10 @@ pip install --upgrade --force-reinstall git+https://github.com/formiel/transform
 ```
 (We will make sure to keep this fork up-to-date with the original `transformers` master branch.)
 
-After the installation you can now use Flaubert in a native way:
+After the installation you can use Flaubert in a native way:
 
 ```bash
 import torch
-import sys
-sys.path.append(os.path.expanduser('~/transformers/src')) # path to where you saved the forked repo
 
 from transformers import FlaubertModel, FlaubertTokenizer
 
