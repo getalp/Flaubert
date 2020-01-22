@@ -10,7 +10,7 @@ This repository is **still under construction** and everything will be available
 # Table of Contents
 **1. [Using FlauBERT](#1.-Using-FlauBERT)**   
 &nbsp;&nbsp;&nbsp;&nbsp;1.1. [Using FlauBERT with Hugging Face's `transformers`](#1.1.-Using-FlauBERT-with-Hugging-Face's-`transformers`)   
-&nbsp;&nbsp;&nbsp;&nbsp;1.2. [Using FlauBERT with Facebook XLM's repository](#1.2.-Using-FlauBERT-with-Facebook-XLM's-repository)  
+&nbsp;&nbsp;&nbsp;&nbsp;1.2. [Using FlauBERT with XLM's repository](#1.2.-Using-FlauBERT-with-Facebook-XLM's-repository)  
 **2. [Pretraining FlauBERT](#2.-Pretraining-FlauBERT)**  
 &nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#2.1.-Data)  
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#2.2.-Training)  
@@ -88,8 +88,8 @@ print(last_layer.shape)
 #torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
 ``` -->
 
-## 1.2. Using FlauBERT with Facebook XLM's repository
-Please refer to the pre-training section and fine-tuning examples in [FLUE](https://github.com/getalp/Flaubert/tree/master/flue).
+ ## 1.2. Using FlauBERT with XLM's repository
+Coming soon.
 
 # 2. Pretraining FlauBERT
 
