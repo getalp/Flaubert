@@ -11,3 +11,4 @@ tests/
 flue/experiments_flue/
 *.pyc
 flue/.DS_Store
+tutorials/generate_embeddings.py
