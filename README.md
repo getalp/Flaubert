@@ -40,12 +40,12 @@ After the installation you can use Flaubert in a native way:
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
-# You could choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
+# You can choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
 modelname = 'flaubert-base-cased' 
 
 flaubert, log = FlaubertModel.from_pretrained(modelname, output_loading_info=True)
-
-flaubert_tokenizer = FlaubertTokenizer.from_pretrained(modelname, do_lowercase=False) # do_lowercase=False if using the 'cased' model, otherwise it should be set to False
+flaubert_tokenizer = FlaubertTokenizer.from_pretrained(modelname, do_lowercase=False)
+# do_lowercase=False if using the 'cased' model, otherwise it should be set to False 
 
 sentence = "Le chat mange une pomme."
 token_ids = torch.tensor([flaubert_tokenizer.encode(sentence)])
