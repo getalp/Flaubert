@@ -1,8 +1,8 @@
-# Flaubert and FLUE
+# FlauBERT and FLUE
 
-**Flaubert** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
+**FlauBERT** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. This repository shares everything: pre-trained models (base and large), the data, the code to use the models and the code to train them if you need. 
  
-Along with Flaubert comes [**FLUE**](https://github.com/getalp/Flaubert/tree/master/flue): an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
+Along with FlauBERT comes [**FLUE**](https://github.com/getalp/Flaubert/tree/master/flue): an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. 
  
 This repository is **still under construction** and everything will be available soon. 
 
@@ -24,35 +24,39 @@ This repository is **still under construction** and everything will be available
  
 
 # 1. Using FlauBERT
+In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's `transformer`](https://github.com/huggingface/transformers) library or via [XLM's library](https://github.com/facebookresearch/XLM). 
 
 ## 1.1. Using FlauBERT with Hugging Face's `transformers`
-
-First, you need to install a `transformers` version that contains Flaubert. At the time of writing this has not been integrated into the official Hugging Face’s repo yet so you would need to install it from our fork:
+First, you need to install a `transformers` version that contains FlauBERT. At the time of writing this has not been integrated into the official Hugging Face’s repo yet so you would need to install it from our fork:
 
 ```
 pip install --upgrade --force-reinstall git+https://github.com/formiel/transformers.git
 ```
 (We will make sure to keep this fork up-to-date with the original `transformers` master branch.)
 
-After the installation you can use Flaubert in a native way:
+After the installation you can use FlauBERT in a native way:
 
 ```bash
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
-# You can choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
+# Choose among ['flaubert-base-cased', 'flaubert-base-uncased', 'flaubert-large-cased']
 modelname = 'flaubert-base-cased' 
 
+# Load pretrained model and tokenizer
 flaubert, log = FlaubertModel.from_pretrained(modelname, output_loading_info=True)
 flaubert_tokenizer = FlaubertTokenizer.from_pretrained(modelname, do_lowercase=False)
-# do_lowercase=False if using the 'cased' model, otherwise it should be set to False 
+# do_lowercase=False if using cased models, True if using uncased ones
 
 sentence = "Le chat mange une pomme."
 token_ids = torch.tensor([flaubert_tokenizer.encode(sentence)])
 
 last_layer = flaubert(token_ids)[0]
 print(last_layer.shape)
-#torch.Size([1, 8, 768])  -> (batch size x number of tokens x embedding dimension)
+# torch.Size([1, 8, 768])  -> (batch size x number of tokens x embedding dimension)
+
+# Sentence embeddings is the first hidden state of the last layer (corresponds to the token [CLS] in BERT)
+sentence_embedding = last_layer.squeeze()[0]
 ```
 
 <!-- A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
@@ -89,7 +93,12 @@ print(last_layer.shape)
 ``` -->
 
  ## 1.2. Using FlauBERT with XLM's repository
-Coming soon.
+The pretrained FlauBERT models are available for downloading in [here](https://zenodo.org/record/3622251). Each compressed folder includes 3 files:
+- `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained model.
+- `codes`: BPE codes learned on the training data.
+- `vocab`: BPE vocabulary file.
+
+You can obtain sentence embeddings by following [this tutorial](https://github.com/facebookresearch/XLM/blob/master/generate-embeddings.ipynb) in original XLM [repo](https://github.com/facebookresearch/XLM) or refer to our example [here]().
 
 # 2. Pretraining FlauBERT
 
@@ -103,12 +112,11 @@ git clone https://github.com/getalp/Flaubert.git
 # Install toolkit
 cd tools
 git clone https://github.com/attardi/wikiextractor.git
-git clone https://github.com/glample/fastBPE.git
 git clone https://github.com/moses-smt/mosesdecoder.git
+
+git clone https://github.com/glample/fastBPE.git
 cd fastBPE
 g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
-cd ..
-cd ..
 ```
 
 #### Data download and preprocessing
