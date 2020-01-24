@@ -98,7 +98,7 @@ The pretrained FlauBERT models are available for downloading in [here](https://z
 - `codes`: BPE codes learned on the training data.
 - `vocab`: BPE vocabulary file.
 
-You can obtain sentence embeddings by following [this tutorial](https://github.com/facebookresearch/XLM/blob/master/generate-embeddings.ipynb) in original XLM [repo](https://github.com/facebookresearch/XLM) or refer to our example [here]().
+You can obtain sentence embeddings by following [this tutorial](https://github.com/facebookresearch/XLM/blob/master/generate-embeddings.ipynb) in original XLM [repo](https://github.com/facebookresearch/XLM) or refer to our example [here](), which is also based on XLM's tutorial.
 
 # 2. Pretraining FlauBERT
 
