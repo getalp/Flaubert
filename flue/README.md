@@ -26,7 +26,7 @@ where `${task}` is either `cls, pawsx, xnli`.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: Vocabulary file.
 
-You can download these pretrained models from [here](https://zenodo.org/record/3622251).
+You can download these pretrained models from [here](https://zenodo.org/record/3626826).
 
 # 1. Text Classification (CLS)
 

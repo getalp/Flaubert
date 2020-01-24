@@ -8,25 +8,38 @@ This repository is **still under construction** and everything will be available
 
 
 # Table of Contents
-**1. [Using FlauBERT](#1.-Using-FlauBERT)**   
-&nbsp;&nbsp;&nbsp;&nbsp;1.1. [Using FlauBERT with Hugging Face's `transformers`](#1.1.-Using-FlauBERT-with-Hugging-Face's-`transformers`)   
-&nbsp;&nbsp;&nbsp;&nbsp;1.2. [Using FlauBERT with XLM's repository](#1.2.-Using-FlauBERT-with-Facebook-XLM's-repository)  
-**2. [Pretraining FlauBERT](#2.-Pretraining-FlauBERT)**  
-&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Data](#2.1.-Data)  
-&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Training](#2.2.-Training)  
-**3. [Fine-tuning FlauBERT on the FLUE benchmark](#3.-Fine-tuning-FlauBERT-on-the-FLUE-benchmark)**  
-**4. [Citation](#4.-Citation)** 
+**1. [FlauBERT models](#1.-FlauBERT-models)**  
+**2. [Using FlauBERT](#2.-Using-FlauBERT)**   
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Using FlauBERT with Hugging Face's `transformers`](#2.1.-Using-FlauBERT-with-Hugging-Face's-`transformers`)   
+&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Using FlauBERT with XLM's repository](#2.2.-Using-FlauBERT-with-XLM's-repository)  
+**3. [Pre-training FlauBERT](#3.-Pre-training-FlauBERT)**  
+&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Data](#3.1.-Data)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.2. [Training](#3.2.-Training)  
+**4. [Fine-tuning FlauBERT on the FLUE benchmark](#4.-Fine-tuning-FlauBERT-on-the-FLUE-benchmark)**  
+**5. [Citation](#5.-Citation)** 
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.4. [Constituency Parsing](#Constituency-Parsing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.5. [Word Sense Disambiguation](#Word-Sense-Disambiguation)   -->
  
+# 1. FlauBERT models
+**FlauBERT** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. We have released the pretrained weights for the following model sizes.
 
-# 1. Using FlauBERT
+These models are available for downloading in [here](https://zenodo.org/record/3626826#) or via Hugging Face's library.
+
+| Model name | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
+| :---       |   :---: | :---: | :---: | :---: |
+| small-cased | 6    | 8    | 512   | 54 M |
+| base-uncased  | 12  | 12  | 768  | 137 M |
+| base-cased   | 12   | 12      | 768   | 138 M |
+| large-cased  | 24   | 16     | 1024 | 373 M |
+
+
+# 2. Using FlauBERT
 In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's `transformer`](https://github.com/huggingface/transformers) library or via [XLM's library](https://github.com/facebookresearch/XLM). 
 
-## 1.1. Using FlauBERT with Hugging Face's `transformers`
+## 2.1. Using FlauBERT with Hugging Face's `transformers`
 First, you need to install a `transformers` version that contains FlauBERT. At the time of writing this has not been integrated into the official Hugging Face’s repo yet so you would need to install it from our fork:
 
 ```
@@ -92,17 +105,17 @@ print(last_layer.shape)
 #torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
 ``` -->
 
- ## 1.2. Using FlauBERT with XLM's repository
-The pretrained FlauBERT models are available for downloading in [here](https://zenodo.org/record/3622251). Each compressed folder includes 3 files:
+ ## 2.2. Using FlauBERT with XLM's repository
+The pretrained FlauBERT models are available for downloading in [here](https://zenodo.org/record/3626826). Each compressed folder includes 3 files:
 - `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained model.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: BPE vocabulary file.
 
 You can obtain sentence embeddings by following [this tutorial](https://github.com/facebookresearch/XLM/blob/master/generate-embeddings.ipynb) in original XLM [repo](https://github.com/facebookresearch/XLM) or refer to our example [here](), which is also based on XLM's tutorial.
 
-# 2. Pretraining FlauBERT
+# 3. Pre-training FlauBERT
 
-## 2.1. Data
+## 3.1. Data
 
 #### Dependencies
 You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
@@ -138,7 +151,7 @@ The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, th
 
 For most of the corpora you can also replace `fr` by another language (we may provide a more detailed documentation on this later).
 
-## 2.2. Training
+## 3.2. Training
 Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https://github.com/facebookresearch/XLM#i-monolingual-language-model-pretraining-bert), with some modifications. You can use their code to train FlauBERT, it will work just fine.
 
 Execute the following command to train FlauBERT (base) on your preprocessed data:
@@ -170,7 +183,7 @@ python train.py \
     --word_pred '0.15'                      
 ```
 
-# 3. Fine-tuning FlauBERT on the FLUE benchmark
+# 4. Fine-tuning FlauBERT on the FLUE benchmark
 [FLUE](https://github.com/getalp/Flaubert/tree/master/flue) (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. Please refer to [this page](https://github.com/getalp/Flaubert/tree/master/flue) for an example of fine-tuning FlauBERT on this benchmark.
 
 <!-- ### Text Classification
@@ -333,7 +346,7 @@ To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can fo
 Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh) -->
 
 
-# 4. Citation
+# 5. Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you found the resources in this repository useful, please refer to our [paper](https://arxiv.org/abs/1912.05372):
 
 ```
