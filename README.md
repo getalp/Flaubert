@@ -49,7 +49,7 @@ pip install --upgrade --force-reinstall git+https://github.com/formiel/transform
 
 After the installation you can use FlauBERT in a native way:
 
-```bash
+```python
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
