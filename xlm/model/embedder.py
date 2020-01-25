@@ -1,9 +1,13 @@
-# Copyright (c) 2019-present, Facebook, Inc.
-# All rights reserved.
-#
-# This source code is licensed under the license found in the
-# LICENSE file in the root directory of this source tree.
-#
+"""
+Modified by Hang Le (hangtp.le@gmail.com)
+Original copyright is appended below.
+--
+Copyright (c) 2019-present, Facebook, Inc.
+All rights reserved.
+This source code is licensed under the license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 
 from logging import getLogger
 import torch
@@ -19,7 +23,7 @@ logger = getLogger()
 class SentenceEmbedder(object):
 
     @staticmethod
-    def reload(path, params):
+    def reload(path, params=None):
         """
         Create a sentence embedder from a pretrained model.
         """
@@ -48,7 +52,8 @@ class SentenceEmbedder(object):
         model.eval()
 
         # adding missing parameters
-        params.max_batch_size = 0
+        if params is not None:
+            params.max_batch_size = 0
 
         return SentenceEmbedder(model, dico, pretrain_params)
 
@@ -118,7 +123,7 @@ class SentenceEmbedder(object):
 
         return parameters
 
-    def get_embeddings(self, x, lengths, positions=None, langs=None):
+    def get_embeddings(self, x, lengths, positions=None, langs=None, all_tokens=False):
         """
         Inputs:
             `x`        : LongTensor of shape (slen, bs)
@@ -134,5 +139,9 @@ class SentenceEmbedder(object):
         tensor = self.model('fwd', x=x, lengths=lengths, positions=positions, langs=langs, causal=False)
         assert tensor.size() == (slen, bs, self.out_dim)
 
-        # single-vector sentence representation (first column of last layer)
-        return tensor[0]
+        if all_tokens:
+            # return representation tensor for all tokens
+            return tensor
+        else:
+            # single-vector sentence representation (first column of last layer)
+            return tensor[0]

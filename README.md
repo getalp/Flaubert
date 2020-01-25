@@ -8,15 +8,15 @@ This repository is **still under construction** and everything will be available
 
 
 # Table of Contents
-**1. [FlauBERT models](#1.-FlauBERT-models)**  
-**2. [Using FlauBERT](#2.-Using-FlauBERT)**   
-&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Using FlauBERT with Hugging Face's `transformers`](#2.1.-Using-FlauBERT-with-Hugging-Face's-`transformers`)   
-&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Using FlauBERT with XLM's repository](#2.2.-Using-FlauBERT-with-XLM's-repository)  
-**3. [Pre-training FlauBERT](#3.-Pre-training-FlauBERT)**  
-&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Data](#3.1.-Data)  
-&nbsp;&nbsp;&nbsp;&nbsp;3.2. [Training](#3.2.-Training)  
-**4. [Fine-tuning FlauBERT on the FLUE benchmark](#4.-Fine-tuning-FlauBERT-on-the-FLUE-benchmark)**  
-**5. [Citation](#5.-Citation)** 
+**1. [FlauBERT models](#1-flaubert-models)**  
+**2. [Using FlauBERT](#2-using-flaubert)**   
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Using FlauBERT with Hugging Face's `transformers`](#21-using-flaubert-with-hugging-faces-transformers)   
+&nbsp;&nbsp;&nbsp;&nbsp;2.2. [Using FlauBERT with Facebook XLM's library](#22-using-flaubert-with-facebook-xlms-library)  
+**3. [Pre-training FlauBERT](#3-pre-training-flaubert)**  
+&nbsp;&nbsp;&nbsp;&nbsp;3.1. [Data](#31-data)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.2. [Training](#32-training)  
+**4. [Fine-tuning FlauBERT on the FLUE benchmark](#4-fine-tuning-flaubert-on-the-flue-benchmark)**  
+**5. [Citation](#5-citation)** 
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Paraphrasing](#Paraphrasing)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.3. [Natural Language Inference](#Natural-Language-Inference)  
@@ -35,12 +35,13 @@ The pretrained models are available for downloading in [here](https://zenodo.org
 | flaubert-base-cased   | 12   | 12      | 768   | 138 M |
 | flaubert-large-cased  | 24   | 16     | 1024 | 373 M |
 
+Note: `flaubert-small-cased` is partially trained so performance is not guaranteed. Consider using it for debugging purpose only.
 
 # 2. Using FlauBERT
-In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's `transformer`](https://github.com/huggingface/transformers) library or via [XLM's library](https://github.com/facebookresearch/XLM). 
+In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's `transformer`](https://github.com/huggingface/transformers) library or via [Facebook's XLM library](https://github.com/facebookresearch/XLM). We will intergrate FlauBERT into [Facebook' fairseq](https://github.com/pytorch/fairseq) in the near future.
 
 ## 2.1. Using FlauBERT with Hugging Face's `transformers`
-First, you need to install a `transformers` version that contains FlauBERT. At the time of writing this has not been integrated into the official Hugging Face’s repo yet so you would need to install it from our fork:
+First, you need to install a `transformers` version that contains FlauBERT. At the time of writing, our pull request has not been merged into the official Hugging Face’s repo yet so you would need to install it from our fork:
 
 ```
 pip install --upgrade --force-reinstall git+https://github.com/formiel/transformers.git
@@ -68,8 +69,8 @@ last_layer = flaubert(token_ids)[0]
 print(last_layer.shape)
 # torch.Size([1, 8, 768])  -> (batch size x number of tokens x embedding dimension)
 
-# Sentence embeddings is the first hidden state of the last layer (corresponds to the token [CLS] in BERT)
-sentence_embedding = last_layer.squeeze()[0]
+# The BERT [CLS] token correspond to the first hidden state of the last layer
+cls_embedding = last_layer[:, 0, :]
 ```
 
 <!-- A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
@@ -105,13 +106,71 @@ print(last_layer.shape)
 #torch.Size([1, 5, 768])  -> (batch size x number of tokens x transformer dimension)
 ``` -->
 
- ## 2.2. Using FlauBERT with XLM's repository
+## 2.2. Using FlauBERT with Facebook XLM's library
 The pretrained FlauBERT models are available for downloading in [here](https://zenodo.org/record/3626826). Each compressed folder includes 3 files:
 - `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained model.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: BPE vocabulary file.
 
-You can obtain sentence embeddings by following [this tutorial](https://github.com/facebookresearch/XLM/blob/master/generate-embeddings.ipynb) in original XLM [repo](https://github.com/facebookresearch/XLM) or refer to our example [here](https://github.com/getalp/Flaubert/blob/master/tutorials/generate_embeddings.py), which is also based on XLM's tutorial.
+**Note:** The following example only works for the modified XLM provided in this repo, it won't work for the [original XLM](https://github.com/facebookresearch/XLM).
+
+The following code is taken from [this tutorial](https://github.com/getalp/Flaubert/blob/master/tutorials/generate_embeddings.py).
+
+```python
+import sys
+import torch
+import fastBPE
+
+# Add Flaubert root to system path (change accordingly)
+FLAUBERT_ROOT = '/home/user/Flaubert'
+sys.path.append(FLAUBERT_ROOT)
+
+from xlm.model.embedder import SentenceEmbedder
+from xlm.data.dictionary import PAD_WORD
+
+
+# Paths to model files
+model_path = '/home/user/flaubert_base_cased/flaubert_base_cased_xlm.pth'
+codes_path = '/home/user/flaubert_base_cased/codes'
+vocab_path = '/home/user/flaubert_base_cased/vocab'
+do_lowercase = False # Change this to True if you use uncased FlauBERT
+
+bpe = fastBPE.fastBPE(codes_path, vocab_path)
+
+sentences = "Le chat mange une pomme ."
+if do_lowercase:
+    sentences = sentences.lower()
+
+# Apply BPE
+sentences = bpe.apply([sentences])
+sentences = [(('</s> %s </s>' % sent.strip()).split()) for sent in sentences]
+print(sentences)
+
+# Create batch
+bs = len(sentences)
+slen = max([len(sent) for sent in sentences])
+
+# Reload pretrained model
+embedder = SentenceEmbedder.reload(model_path)
+embedder.eval()
+dico = embedder.dico
+
+# Prepare inputs to model
+word_ids = torch.LongTensor(slen, bs).fill_(dico.index(PAD_WORD))
+for i in range(len(sentences)):
+    sent = torch.LongTensor([dico.index(w) for w in sentences[i]])
+    word_ids[:len(sent), i] = sent
+lengths = torch.LongTensor([len(sent) for sent in sentences])
+
+# Get sentence embeddings (corresponding to the BERT [CLS] token)
+cls_embedding = embedder.get_embeddings(x=word_ids, lengths=lengths)
+print(cls_embedding.size())
+
+# Get the entire output tensor for all tokens
+# Note that cls_embedding = tensor[0]
+tensor = embedder.get_embeddings(x=word_ids, lengths=lengths, all_tokens=True)
+print(tensor.size())
+```
 
 # 3. Pre-training FlauBERT
 
