@@ -107,14 +107,12 @@ print(last_layer.shape)
 ``` -->
 
 ## 2.2. Using FlauBERT with Facebook XLM's library
-The pretrained FlauBERT models are available for downloading in [here](https://zenodo.org/record/3626826). Each compressed folder includes 3 files:
+The pretrained FlauBERT models are available for download from [here](https://zenodo.org/record/3626826). Each compressed folder includes 3 files:
 - `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained model.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: BPE vocabulary file.
 
-**Note:** The following example only works for the modified XLM provided in this repo, it won't work for the [original XLM](https://github.com/facebookresearch/XLM).
-
-The following code is taken from [this tutorial](https://github.com/getalp/Flaubert/blob/master/tutorials/generate_embeddings.py).
+**Note:** The following example only works for the modified XLM provided in this repo, it won't work for the [original XLM](https://github.com/facebookresearch/XLM). The code is taken from [this tutorial](https://github.com/getalp/Flaubert/blob/master/tutorials/generate_embeddings.py).
 
 ```python
 import sys
