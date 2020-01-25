@@ -7,11 +7,13 @@ On this page we describe the tasks and provide examples of usage.
 A leaderboard will be updated frequently [here](https://github.com/getalp/Flaubert/tree/master/flue/leaderboard).
  
 # Table of Contents
-1. [Text Classification](#1.-Text-Classification-(CLS))  
-2. [Paraphrasing](#2.-Paraphrasing-(PAWS-X))  
-3. [Natural Language Inference](#3.-Natural-Language-Inference-(XNLI))  
-4. [Constituency Parsing](#4.-Constituency-Parsing)  
-5. [Word Sense Disambiguation](#5.-Word-Sense-Disambiguation)
+1. [Text Classification](#1-text-classification-cls)  
+2. [Paraphrasing](#2-paraphrasing-paws-x)  
+3. [Natural Language Inference](#3-natural-language-inference-xnli)  
+4. [Constituency Parsing](#4-constituency-parsing)  
+5. [Word Sense Disambiguation](#5-word-sense-disambiguation)    
+&nbsp;&nbsp;&nbsp;&nbsp;5.1. [Verb Sense Disambiguation](#51-verb-sense-disambiguation)     
+&nbsp;&nbsp;&nbsp;&nbsp;5.2. [Noun Sense Disambiguation](#52-noun-sense-disambiguation)   
 <!-- 6. [Named Entity Recognition](#6.-Named-Entity-Recognition)
 7. [Question Answering](#7.-Question-Answering) -->
 
