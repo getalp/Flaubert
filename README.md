@@ -10,7 +10,7 @@ This repository is **still under construction** and everything will be available
 # Table of Contents
 **1. [FlauBERT models](#1-flaubert-models)**  
 **2. [Using FlauBERT](#2-using-flaubert)**   
-&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Using FlauBERT with Hugging Face's `transformers`](#21-using-flaubert-with-hugging-faces-transformers)   
+&nbsp;&nbsp;&nbsp;&nbsp;2.1. [Using FlauBERT with Hugging Face's Transformers](#21-using-flaubert-with-hugging-faces-transformers)   
 &nbsp;&nbsp;&nbsp;&nbsp;2.2. [Using FlauBERT with Facebook XLM's library](#22-using-flaubert-with-facebook-xlms-library)  
 **3. [Pre-training FlauBERT](#3-pre-training-flaubert)**  
 &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Data](#31-data)  
@@ -38,10 +38,10 @@ The pretrained models are available for downloading in [here](https://zenodo.org
 Note: `flaubert-small-cased` is partially trained so performance is not guaranteed. Consider using it for debugging purpose only.
 
 # 2. Using FlauBERT
-In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's `transformer`](https://github.com/huggingface/transformers) library or via [Facebook's XLM library](https://github.com/facebookresearch/XLM). We will intergrate FlauBERT into [Facebook' fairseq](https://github.com/pytorch/fairseq) in the near future.
+In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's Transformer](https://github.com/huggingface/transformers) library or via [Facebook's XLM library](https://github.com/facebookresearch/XLM). We will intergrate FlauBERT into [Facebook' fairseq](https://github.com/pytorch/fairseq) in the near future.
 
-## 2.1. Using FlauBERT with Hugging Face's `transformers`
-First, you need to install a `transformers` version that contains FlauBERT. At the time of writing, our pull request has not been merged into the official Hugging Face’s repo yet so you would need to install it from our fork:
+## 2.1. Using FlauBERT with Hugging Face's Transformers
+First, you need to install a Transformers version that contains FlauBERT. At the time of writing, our pull request has not been merged into the official Hugging Face’s repo yet so you would need to install it from our fork:
 
 ```
 pip install --upgrade --force-reinstall git+https://github.com/formiel/transformers.git
