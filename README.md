@@ -26,14 +26,14 @@ This repository is **still under construction** and everything will be available
 # 1. FlauBERT models
 **FlauBERT** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. We have released the pretrained weights for the following model sizes.
 
-The pretrained models are available for downloading in [here](https://zenodo.org/record/3626826#) or via Hugging Face's library.
+The pretrained models are available for download from [here](https://zenodo.org/record/3627732) or via Hugging Face's library.
 
 | Model name | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
 | :---       |   :---: | :---: | :---: | :---: |
-| flaubert-small-cased | 6    | 8    | 512   | 54 M |
-| flaubert-base-uncased  | 12  | 12  | 768  | 137 M |
-| flaubert-base-cased   | 12   | 12      | 768   | 138 M |
-| flaubert-large-cased  | 24   | 16     | 1024 | 373 M |
+| `flaubert-small-cased` | 6    | 8    | 512   | 54 M |
+| `flaubert-base-uncased`  | 12  | 12  | 768  | 137 M |
+| `flaubert-base-cased`   | 12   | 12      | 768   | 138 M |
+| `flaubert-large-cased`  | 24   | 16     | 1024 | 373 M |
 
 Note: `flaubert-small-cased` is partially trained so performance is not guaranteed. Consider using it for debugging purpose only.
 
@@ -107,8 +107,8 @@ print(last_layer.shape)
 ``` -->
 
 ## 2.2. Using FlauBERT with Facebook XLM's library
-The pretrained FlauBERT models are available for download from [here](https://zenodo.org/record/3626826). Each compressed folder includes 3 files:
-- `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained model.
+The pretrained FlauBERT models are available for download from [here](https://zenodo.org/record/3627732). Each compressed folder includes 3 files:
+- `*.pth`: FlauBERT's pretrained model.
 - `codes`: BPE codes learned on the training data.
 - `vocab`: BPE vocabulary file.
 

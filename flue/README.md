@@ -24,9 +24,9 @@ bash get-data-${task}.sh $DATA_DIR
 where `${task}` is either `cls, pawsx, xnli`.
 
 `$MODEL_DIR` denotes the path to where you save the pretrainded FlauBERT model, which contains 3 files:
-- `flaubert_base_uncased_xlm.pth` (or `flaubert_base_cased_xlm.pth`, `flaubert_large_cased_xlm.pth`): FlauBERT's pretrained XLM checkpoint.
+- `*.pth`: FlauBERT's pretrained model.
 - `codes`: BPE codes learned on the training data.
-- `vocab`: Vocabulary file.
+- `vocab`: BPE vocabulary file.
 
 You can download these pretrained models from [here](https://zenodo.org/record/3626826).
 
