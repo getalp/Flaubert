@@ -26,7 +26,7 @@ This repository is **still under construction** and everything will be available
 # 1. FlauBERT models
 **FlauBERT** is a French BERT trained on a very large and heterogeneous French corpus. Models of different sizes are trained using the new CNRS  (French National Centre for Scientific Research) [Jean Zay](http://www.idris.fr/eng/jean-zay/ ) supercomputer. We have released the pretrained weights for the following model sizes.
 
-These models are available for downloading in [here](https://zenodo.org/record/3626826#) or via Hugging Face's library.
+The pretrained models are available for downloading in [here](https://zenodo.org/record/3626826#) or via Hugging Face's library.
 
 | Model name | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
 | :---       |   :---: | :---: | :---: | :---: |
