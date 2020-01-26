@@ -404,7 +404,7 @@ Once the model is trained, you can disambiguate any text using the script [5.dis
 
 
 # 5. Citation
-If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you found the resources in this repository useful, please refer to our [paper](https://arxiv.org/abs/1912.05372):
+If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you find the resources in this repository useful, please refer to our [paper](https://arxiv.org/abs/1912.05372):
 
 ```
 @misc{le2019flaubert,

@@ -54,6 +54,31 @@ class FLUE:
             group_by_size=self.params.group_by_size
         )
 
+    # def save_weights(self, path):
+    #     try:
+    #         embedder_state_dict = self.embedder.module.state_dict()
+    #     except AttributeError:
+    #         embedder_state_dict = self.embedder.state_dict()
+    #     try:
+    #         proj_state_dict = self.proj.module.state_dict()
+    #     except AttributeError:
+    #         proj_state_dict = self.proj.state_dict()
+    #     state_dict = {'embedder': embedder_state_dict,
+    #                   'proj': proj_state_dict}
+    #     # Write first to the temporary file
+    #     temp_path = path + '.tmp'
+    #     dir_path = os.path.dirname(temp_path)
+    #     if not os.path.isdir(dir_path):
+    #         os.makedirs(dir_path)
+    #         torch.save(state_dict, temp_path)
+    #     # Safely rename to the main file
+    #     os.rename(temp_path, path)
+
+    # def load_weights(self, path):
+    #     state_dict = torch.load(path, map_location=lambda storage, loc: storage)
+    #     self.embedder.load_state_dict(state_dict['embedder'])
+    #     self.proj.load_state_dict(state_dict['proj'])
+
     def run(self, task):
         """
         Run training/evaluation
@@ -97,7 +122,9 @@ class FLUE:
         self.optimizer_e = get_optimizer(list(self.embedder.get_parameters(params.finetune_layers)), params.optimizer_e)
         self.optimizer_p = get_optimizer(self.proj.parameters(), params.optimizer_p)
 
-        # train and evaluate the model
+        # # train and evaluate the model
+        # best_acc = 0.0
+        # best_f1 = 0.0
         for epoch in range(params.n_epochs):
 
             # update epoch
@@ -113,6 +140,26 @@ class FLUE:
                 scores = self.eval('valid')
                 self.scores.update(scores)
                 self.eval('test')
+            # with torch.no_grad():
+            #     scores = self.eval('valid')
+            #     for k, s in scores.items():
+            #         if k.endswith('_acc'):
+            #             epoch_acc = s
+            #         elif k.endswith('_f1'):
+            #             epoch_f1 = s
+            #     run_test = False
+            #     if best_acc < epoch_acc:
+            #         best_acc = epoch_acc
+            #         run_test = True
+            #         self.save_weights(os.path.join(params.dump_path, 'weights_acc.pth'))
+            #     if best_f1 < epoch_f1:
+            #         best_f1 = epoch_f1
+            #         run_test = True
+            #         self.save_weights(os.path.join(params.dump_path, 'weights_f1.pth'))
+            #     if run_test:
+            #         self.eval('test')
+            #     self.scores.update(scores)
+                
 
     def train(self):
         """
