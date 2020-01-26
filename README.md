@@ -28,7 +28,7 @@ This repository is **still under construction** and everything will be available
 
 The pretrained models are available for download from [here](https://zenodo.org/record/3627732) or via Hugging Face's library.
 
-| Model | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
+| Model name | Number of layers | Attention Heads | Embedding Dimension | Total Parameters |
 | :------       |   :---: | :---: | :---: | :---: |
 | `flaubert-small-cased` | 6    | 8    | 512   | 54 M |
 | `flaubert-base-uncased`  | 12  | 12  | 768  | 137 M |
