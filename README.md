@@ -28,12 +28,12 @@ This repository is **still under construction** and everything will be available
 
 The pretrained models are available for download from [here](https://zenodo.org/record/3627732) or via Hugging Face's library.
 
-| Model name | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
-| :---       |   :---: | :---: | :---: | :---: |
-| flaubert-small-cased | 6    | 8    | 512   | 54 M |
-| flaubert-base-uncased  | 12  | 12  | 768  | 137 M |
-| flaubert-base-cased   | 12   | 12      | 768   | 138 M |
-| flaubert-large-cased  | 24   | 16     | 1024 | 373 M |
+| Model | Transformer Layers | Attention Heads | Embedding Dimension | Total Parameters |
+| :------       |   :---: | :---: | :---: | :---: |
+| `flaubert-small-cased` | 6    | 8    | 512   | 54 M |
+| `flaubert-base-uncased`  | 12  | 12  | 768  | 137 M |
+| `flaubert-base-cased`   | 12   | 12      | 768   | 138 M |
+| `flaubert-large-cased`  | 24   | 16     | 1024 | 373 M |
 
 Note: `flaubert-small-cased` is partially trained so performance is not guaranteed. Consider using it for debugging purpose only.
 
