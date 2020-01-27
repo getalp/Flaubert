@@ -272,7 +272,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3,4 # if you only use some of the GPUs in the 
 python -m torch.distributed.launch --nproc_per_node=$NGPU train.py
 ```
 
-To run experiments on multiple nodes, multiple GPUs in clusters using SLURM as a resource manager, you can use the following command to launch training after requesting resources with `#SBATCH` for example (the parameters after `train.py` are the same as above plus `--master_port`).
+To run experiments on multiple nodes, multiple GPUs in clusters using SLURM as a resource manager, you can use the following command to launch training after requesting resources with `#SBATCH` (the parameters after `train.py` are the same as above plus `--master_port`).
 ```bash
 srun python train.py
 ```
