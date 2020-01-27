@@ -172,9 +172,7 @@ print(tensor.size())
 
 # 3. Pre-training FlauBERT
 
-## 3.1. Data
-
-#### Dependencies
+### Install dependencies
 You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
 ```bash
 git clone https://github.com/getalp/Flaubert.git
@@ -189,7 +187,14 @@ cd fastBPE
 g++ -std=c++11 -pthread -O3 fastBPE/main.cc -IfastBPE -o fast
 ```
 
-#### Data download and preprocessing
+## 3.1. Data
+In this section, we describe the pipeline to prepare the data for training FlauBERT. This is based on [Facebook XLM's library](https://github.com/facebookresearch/XLM). The steps are as follows:
+1. Download, clean, and tokenize data using Moses tokenizer.
+2. Split cleaned data into: train, validation, and test sets.
+3. Learn BPE on the training set. Then apply learned BPE codes to train, validation, and test sets.
+4. Binarize data.
+
+### (1) Download and Preprocess Data
 In the following, replace `$DATA_DIR`, `$corpus_name` respectively with the path to the local directory to save the downloaded data and the name of the corpus that you want to download among the options specified in the scripts.
 
 To download and preprocess the data, excecute the following commands:
@@ -208,6 +213,23 @@ The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, th
 
 For most of the corpora you can also replace `fr` by another language (we may provide a more detailed documentation on this later).
 
+### (2) Split Data
+Run the following command to split cleaned corpus into train, validation, and test sets. You can modify the train/validation/test ratio in the script.
+
+```bash
+bash tools/split_train_val_test.sh $DATA_PATH
+```
+where `$DATA_PATH` is path to the file to be split. 
+
+The output files are: `fr.train, fr.valid, fr.test` which are saved under the same directory as the original file.
+
+### (3) & (4) Learn BPE and Prepare Data
+Run the following command to learn BPE codes on the training set, and apply BPE codes on the train, validation, and test sets. The data is then binarized and ready for training.
+```bash
+bash tools/create_pretraining_data.sh $DATA_DIR $BPE_size
+```
+where `$DATA_DIR` is path to the directory where the 3 above files `fr.train, fr.valid, fr.test` are saved. `$BPE_size` is the number of BPE vocabulary size, for example: `30` for 30k,`50` for 50k, etc. The output files are saved in `$DATA_DIR/BPE/30k` or `$DATA_DIR/BPE/50k` correspondingly.
+
 ## 3.2. Training
 Our codebase for pretraining FlauBERT is largely based on the [XLM repo](https://github.com/facebookresearch/XLM#i-monolingual-language-model-pretraining-bert), with some modifications. You can use their code to train FlauBERT, it will work just fine.
 
@@ -215,9 +237,10 @@ Execute the following command to train FlauBERT (base) on your preprocessed data
 
 ```bash
 python train.py \
-    --exp_name flaubert_base_lower \
-    --dump_path path/to/save/model \
-    --data_path path/to/data \
+    --exp_name flaubert_base_cased \
+    --dump_path $dump_path \
+    --data_path $data_path \
+    --amp 1 \
     --lgs 'fr' \
     --clm_steps '' \
     --mlm_steps 'fr' \
@@ -238,6 +261,20 @@ python train.py \
     --accumulate_gradients 16 \
     --word_mask_keep_rand '0.8,0.1,0.1' \
     --word_pred '0.15'                      
+```
+where `$dump_path` is the path to where you want to save your pretrained model, `$data_path` is the path to the binarized data sets, for example `$DATA_DIR/BPE/50k`.
+
+### Run experiments on multiple GPUs and/or multiple nodes
+To run experiments on multiple GPUs in a single machine, you can use the following command (the parameters after `train.py` are the same as above).
+```bash
+export NGPU=4
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4 # if you only use some of the GPUs in the machine
+python -m torch.distributed.launch --nproc_per_node=$NGPU train.py
+```
+
+To run experiments on multiple nodes, multiple GPUs in clusters using SLURM as a resource manager, you can use the following command to launch training after requesting resources with `#SBATCH` for example (the parameters after `train.py` are the same as above plus `--master_port`).
+```bash
+srun python train.py
 ```
 
 # 4. Fine-tuning FlauBERT on the FLUE benchmark
