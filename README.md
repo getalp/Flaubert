@@ -41,14 +41,15 @@ Note: `flaubert-small-cased` is partially trained so performance is not guarante
 In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's Transformer](https://github.com/huggingface/transformers) library or via [Facebook's XLM library](https://github.com/facebookresearch/XLM). We will intergrate FlauBERT into [Facebook' fairseq](https://github.com/pytorch/fairseq) in the near future.
 
 ## 2.1. Using FlauBERT with Hugging Face's Transformers
-First, you need to install a Transformers version that contains FlauBERT. At the time of writing, our pull request has not been merged into the official Hugging Face’s repo yet so you would need to install it from our fork:
+You can use FlauBERT with [Hugging Face's Transformers](https://github.com/huggingface/transformers) library as follow.
+<!-- First, you need to install a Transformers version that contains FlauBERT. At the time of writing, our pull request has not been merged into the official Hugging Face’s repo yet so you would need to install it from our fork:
 
 ```
 pip install --upgrade --force-reinstall git+https://github.com/formiel/transformers.git
 ```
 (We will make sure to keep this fork up-to-date with the original `transformers` master branch.)
 
-After the installation you can use FlauBERT in a native way:
+After the installation you can use FlauBERT in a native way: -->
 
 ```python
 import torch

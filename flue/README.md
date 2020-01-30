@@ -91,8 +91,8 @@ python flue/flue_xnli.py --exp_name $exp_name \
                         --max_vocab $max_vocab
 ```
 
-### b. Finetuning FlauBERT with Hugging Face's transformers library
-You should follow the instructions [here](https://github.com/getalp/Flaubert#11-using-flaubert-with-hugging-faces-transformers) to clone our Transformer repo forked from [Hugging Face's Transformer](https://github.com/huggingface/transformers), in which we added our Flaubert's classes. We will update the instructions when our model is integrated into official Hugging Face's Transformer library.
+### b. Finetuning FlauBERT with Hugging Face's Transformers library
+<!-- You should follow the instructions [here](https://github.com/getalp/Flaubert#11-using-flaubert-with-hugging-faces-transformers) to clone our Transformer repo forked from [Hugging Face's Transformer](https://github.com/huggingface/transformers), in which we added our Flaubert's classes. We will update the instructions when our model is integrated into official Hugging Face's Transformer library. -->
 
 <!-- ```bash
 pip install git+https://github.com/formiel/transformers.git --upgrade
@@ -109,7 +109,8 @@ python flue/extract_split_cls.py --indir $DATA_DIR/raw/cls-acl10-unprocessed \
 ```
 
 #### Finetune
-Run the below command to finetune Flaubert using the Transformers repo from [above](#b.-Finetuning-FlauBERT-with-Hugging-Face's-transformers-library), where `~/transformers` should be replaced by the local path where you save the forked repo.
+<!-- Run the below command to finetune Flaubert using the Transformers repo from [above](#b.-Finetuning-FlauBERT-with-Hugging-Face's-transformers-library), where `~/transformers` should be replaced by the local path where you save the forked repo. -->
+Run the below command to finetune Flaubert using [Hugging Face's Transformers](https://github.com/huggingface/transformers) library.
 
 ```bash
 config='flue/examples/cls_books_lr5e6_hf_base_uncased.cfg'
@@ -194,7 +195,8 @@ python flue/extract_pawsx.py --indir ~/Data/FLUE/pawsx/raw/x-final \
 ```
 
 #### Finetune
-Run the below command to finetune Flaubert using the Transformers repo from [above](#b.-Finetuning-FlauBERT-with-Hugging-Face's-transformers-library), where `~/transformers` should be replaced by the local path where you save the forked repo.
+<!-- Run the below command to finetune Flaubert using the Transformers repo from [above](#b.-Finetuning-FlauBERT-with-Hugging-Face's-transformers-library), where `~/transformers` should be replaced by the local path where you save the forked repo. -->
+Run the below command to finetune Flaubert on `PAWSX` dataset using [Hugging Face's Transformers](https://github.com/huggingface/transformers) library.
 
 ```bash
 config='flue/examples/pawsx_lr5e6_hf_base_cased.cfg'
