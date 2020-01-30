@@ -254,9 +254,9 @@ class TransformerModel(nn.Module):
         self.with_output = with_output
 
         # LayerDrop and Pre-norm
-        self.layerdrop = 0.0 if not hasattr(params, "layerdrop") else params.layerdrop
-        self.pre_norm = False if not hasattr(params, "pre_norm") else params.pre_norm
-        self.layer_norm_eps = 1e-12 if not hasattr(params, "pre_norm") else params.pre_norm
+        self.layerdrop = getattr(params, "layerdrop", 0.0)
+        self.pre_norm = getattr(params, "pre_norm", False)
+        self.layer_norm_eps = getattr(params, "layer_norm_eps", 1e-6)
         logger.info('layerdrop - prenorm - layernorm eps: {} - {} - {}'.format(self.layerdrop, self.pre_norm, self.layer_norm_eps))
 
         # dictionary / languages
