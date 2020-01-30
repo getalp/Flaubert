@@ -55,7 +55,7 @@ After the installation you can use FlauBERT in a native way: -->
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
-# Choose among ['flaubert-small-cased', 'flaubert-base-uncased', 'flaubert-base-cased', , 'flaubert-large-cased']
+# Choose among ['flaubert-small-cased', 'flaubert-base-uncased', 'flaubert-base-cased', 'flaubert-large-cased']
 modelname = 'flaubert-base-cased' 
 
 # Load pretrained model and tokenizer
