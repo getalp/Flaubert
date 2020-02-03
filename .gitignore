@@ -9,5 +9,6 @@ use_flaubert_with_transformers/
 run-finetune.sh
 tests/
 flue/experiments_flue/
+flue/experiments_final/
 *.pyc
 flue/.DS_Store
