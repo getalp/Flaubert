@@ -1,4 +1,4 @@
-#! bin/bash
+#!/usr/bin/env bash
 # Copyright 2019 Hang Le
 # hangtp.le@gmail.com
 

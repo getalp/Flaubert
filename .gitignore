@@ -12,3 +12,4 @@ flue/experiments_flue/
 flue/experiments_final/
 *.pyc
 flue/.DS_Store
+run-finetune-b.sh

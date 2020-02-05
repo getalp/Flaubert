@@ -1,4 +1,4 @@
-#! bin/bash
+#!/usr/bin/env bash
 # Hang Le (hangtp.le@gmail.com)
 # Modified from
 # https://github.com/facebookresearch/XLM/blob/master/prepare-xnli.sh

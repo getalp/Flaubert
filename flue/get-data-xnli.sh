@@ -1,4 +1,4 @@
-#! bin/bash
+#!/usr/bin/env bash
 # Hang Le (hangtp.le@gmail.com)
 # Modified from
 # https://github.com/facebookresearch/XLM/blob/master/get-data-xnli.sh
