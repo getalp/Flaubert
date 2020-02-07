@@ -276,7 +276,7 @@ See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) 
 
 To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions [here](https://github.com/mcoavoux/self-attentive-parser).
 
-Pretrained parsing models will be available soon!
+Pretrained parsing models for both FlauBERT and camembert are now available!
 
 # 5. Word Sense Disambiguation
 ## 5.1. Verb Sense Disambiguation
