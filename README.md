@@ -212,7 +212,34 @@ For example:
 
 The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, the second one processes them and save to `$DATA_DIR/processed/fr_gutenberg`.
 
-For most of the corpora you can also replace `fr` by another language (we may provide a more detailed documentation on this later).
+Below is the list of copora that we use for pre-training FlauBERT along with their corresponding `$corpus_name`s. For most of the corpora you can also replace `fr` by another language if that language is provided. You can refer to our [paper](https://arxiv.org/abs/1912.05372) for more details on the statistics of these corpora (for French only).
+
+| Dataset | `$corpus_name` | Available languages | Note |
+| :------|   :--- | :---: | :---: | 
+| CommonCrawl |  `common_crawl`   |     |     |
+| NewsCrawl |   `news_crawl`  |     |     |
+| Wikipedia |   `wiki`  |     |     |
+| Wikisource |   `wikisource`  |     |     |
+| EU Bookshop |  `feu_bookshop`   |     |     |
+| MultiUN |   `multi_un`  |     |     |
+| GIGA |  `giga`   |     |     |
+| PCT |  NA   |     |     |
+| Project Gutenberg |  `gutenberg`   |     |     |
+| OpenSubtitles |  `open_subtitles16`   |     |     |
+| Le Monde |  NA   |     |     |
+| DGT |  `dgt`   |     |     |
+| EuroParl |  `europarl`   |     |     |
+| EnronSent |  NA   |     |     |
+| NewsCommentary |  `news_commentary`   |     |     |
+| Wiktionary |  NA   |     |     |
+| Global Voices |  `global_voices`   |     |     |
+| Wikinews |  `wikinews`   |     |     |
+| TED Talks |  ``   |     |     |
+| Wikiversity |     |     |     |
+| Wikibooks |     |     |     |
+| Wikiquote |     |     |     |
+| Wikivoyage |     |     |     |
+| EUconst |     |     |     |
 
 ### (2) Split Data
 Run the following command to split cleaned corpus into train, validation, and test sets. You can modify the train/validation/test ratio in the script.
