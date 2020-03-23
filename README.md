@@ -15,6 +15,7 @@ This repository is **still under construction** and everything will be available
 **3. [Pre-training FlauBERT](#3-pre-training-flaubert)**  
 &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Data](#31-data)  
 &nbsp;&nbsp;&nbsp;&nbsp;3.2. [Training](#32-training)  
+&nbsp;&nbsp;&nbsp;&nbsp;3.3. [Convert an XLM pre-trained model to Hugging Face's Transformers](#33-convert-an-XLM-pre-trained-model-to-hugging-faces-transformers)  
 **4. [Fine-tuning FlauBERT on the FLUE benchmark](#4-fine-tuning-flaubert-on-the-flue-benchmark)**  
 **5. [Citation](#5-citation)** 
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;3.1. [Text Classification](#Text-Classification)  
@@ -212,7 +213,7 @@ For example:
 
 The first command will download the raw data to `$DATA_DIR/raw/fr_gutenberg`, the second one processes them and save to `$DATA_DIR/processed/fr_gutenberg`.
 
-Below is the list of copora that we use for pre-training FlauBERT along with their corresponding `$corpus_name`s. For most of the corpora you can also replace `fr` by another language if that language is provided. You can refer to our [paper](https://arxiv.org/abs/1912.05372) for more details on the statistics of these corpora (for French only).
+<!-- Below is the list of copora that we use for pre-training FlauBERT along with their corresponding `$corpus_name`s. For most of the corpora you can also replace `fr` by another language if that language is provided. You can refer to our [paper](https://arxiv.org/abs/1912.05372) for more details on the statistics of these corpora (for French only).
 
 | Dataset | `$corpus_name` | Available languages | Note |
 | :------|   :--- | :---: | :---: | 
@@ -239,7 +240,7 @@ Below is the list of copora that we use for pre-training FlauBERT along with the
 | Wikibooks |     |     |     |
 | Wikiquote |     |     |     |
 | Wikivoyage |     |     |     |
-| EUconst |     |     |     |
+| EUconst |     |     |     | -->
 
 ### (2) Split Data
 Run the following command to split cleaned corpus into train, validation, and test sets. You can modify the train/validation/test ratio in the script.
@@ -304,6 +305,13 @@ To run experiments on multiple nodes, multiple GPUs in clusters using SLURM as a
 ```bash
 srun python train.py
 ```
+
+## 3.3. Convert an XLM pre-trained model to Hugging Face's Transformers
+To convert an XLM pre-trained model to Hugging Face's Transformers, you can use the following command.
+```bash
+python tools/use_flaubert_with_transformers/convert_to_transformers.py --inputdir $inputdir --outputdir $outputdir
+```
+where `$inputdir` is path to the XLM pretrained model directory, `$outputdir` is path to the output directory where you want to save the Hugging Face's Transformer model.
 
 # 4. Fine-tuning FlauBERT on the FLUE benchmark
 [FLUE](https://github.com/getalp/Flaubert/tree/master/flue) (French Language Understanding Evaludation) is a general benchmark for evaluating French NLP systems. Please refer to [this page](https://github.com/getalp/Flaubert/tree/master/flue) for an example of fine-tuning FlauBERT on this benchmark.
