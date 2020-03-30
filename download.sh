@@ -28,7 +28,7 @@ latest=$4 # '' or dump date in case of downloading Wikipedia
 link=$5 # download link in case corpus is not supported
 
 # Check number of arguments
-if [ $# -eq 3 ]
+if [ $# -ge 3 ]
 then
     echo "Running script ..."
 else
