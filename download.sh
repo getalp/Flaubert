@@ -101,7 +101,7 @@ elif [ "$corpus" == "news_crawl" ]; then
         rmdir $DATA_RAW
     fi
 
-elif [ "$cp" == "common_crawl" ]; then
+elif [ "$corpus" == "common_crawl" ]; then
     supported_lgs="ar en es fr ru zh"
     if [[ $supported_lgs =~ (^|[[:space:]])"$lg"($|[[:space:]]) ]]; then
         # download data
