@@ -1,5 +1,11 @@
 # FLUE: French Language Understanding Evaluation
 
+# News
+
+- May 13th 2020: Code and pre-trained models for [Dependency Parsing](#42-dependency-parsing) are available!
+
+# Introduction
+
 **FLUE** is an evaluation setup for French NLP systems similar to the popular GLUE benchmark. The goal is to enable further reproducible experiments in the future and to share models and progress on the French language. The tasks and data are obtained from existing works, please refer to our [Flaubert paper](https://arxiv.org/abs/1912.05372) for a complete list of references.
 
 On this page we describe the tasks and provide examples of usage.
@@ -10,7 +16,9 @@ A leaderboard will be updated frequently [here](https://github.com/getalp/Flaube
 **1. [Text Classification](#1-text-classification-cls)**    
 **2. [Paraphrasing](#2-paraphrasing-paws-x)**  
 **3. [Natural Language Inference](#3-natural-language-inference-xnli)**     
-**4. [Constituency Parsing](#4-constituency-parsing)**  
+**4. [Parsing](#4-parsing)**  
+&nbsp;&nbsp;&nbsp;&nbsp;4.1. [Constituency Parsing](#41-constituency-parsing)   
+&nbsp;&nbsp;&nbsp;&nbsp;4.2. [Dependency Parsing](#42-dependency-parsing)   
 **5. [Word Sense Disambiguation](#5-word-sense-disambiguation)**    
 &nbsp;&nbsp;&nbsp;&nbsp;5.1. [Verb Sense Disambiguation](#51-verb-sense-disambiguation)     
 &nbsp;&nbsp;&nbsp;&nbsp;5.2. [Noun Sense Disambiguation](#52-noun-sense-disambiguation)   
@@ -269,14 +277,20 @@ python flue/flue_xnli.py --exp_name $exp_name \
 ### b. Finetuning FlauBERT with Hugging Face's transformers library
 Coming soon.
 
-# 4. Constituency Parsing
+# 4. Parsing
 
+## 4.1. Constituency Parsing
 The French Treebank collection is freely available for research purposes.
 See [here](http://ftb.linguist.univ-paris-diderot.fr/telecharger.php?langue=en) to download the latest version of the corpus and sign the license, and [here](http://dokufarm.phil.hhu.de/spmrl2014/) to obtain the version of the corpus used for the experiments described in the paper.
 
 To fine-tune FlauBERT on constituency parsing on the French Treebank, see instructions [here](https://github.com/mcoavoux/self-attentive-parser).
 
-Pretrained parsing models for both FlauBERT and camembert are now available!
+Pretrained parsing models for both FlauBERT and CamemBERT are now available!
+
+## 4.2. Dependency Parsing
+To fine-tune FlauBERT on dependency parsing, see instructions [here](https://github.com/bencrabbe/npdependency).
+
+Pretrained models for both FlauBERT and CamemBERT are available!
 
 # 5. Word Sense Disambiguation
 ## 5.1. Verb Sense Disambiguation
