@@ -477,9 +477,36 @@ Once the model is trained, you can disambiguate any text using the script [5.dis
 
 
 # 5. Citation
-If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you find the resources in this repository useful, please refer to our [paper](https://arxiv.org/abs/1912.05372):
+If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you find the resources in this repository useful, please cite one of the following papers:
 
+[LREC paper](http://www.lrec-conf.org/proceedings/lrec2020/pdf/2020.lrec-1.302.pdf)
 ```
+@InProceedings{le2020flaubert,
+  author    = {Le, Hang  and  Vial, Lo\"{i}c  and  Frej, Jibril  and  Segonne, Vincent  and  Coavoux, Maximin  and  Lecouteux, Benjamin  and  Allauzen, Alexandre  and  Crabb\'{e}, Beno\^{i}t  and  Besacier, Laurent  and  Schwab, Didier},
+  title     = {FlauBERT: Unsupervised Language Model Pre-training for French},
+  booktitle = {Proceedings of The 12th Language Resources and Evaluation Conference},
+  month     = {May},
+  year      = {2020},
+  address   = {Marseille, France},
+  publisher = {European Language Resources Association},
+  pages     = {2479--2490},
+  url       = {https://www.aclweb.org/anthology/2020.lrec-1.302}
+}
+```
+
+[TALN paper](https://hal.archives-ouvertes.fr/hal-02784776/)
+```
+@inproceedings{le2020flaubert,
+  title         = {FlauBERT: des mod{\`e}les de langue contextualis{\'e}s pr{\'e}-entra{\^\i}n{\'e}s pour le fran{\c{c}}ais},
+  author        = {Le, Hang and Vial, Lo{\"\i}c and Frej, Jibril and Segonne, Vincent and Coavoux, Maximin and Lecouteux, Benjamin and Allauzen, Alexandre and Crabb{\'e}, Beno{\^\i}t and Besacier, Laurent and Schwab, Didier},
+  booktitle     = {Actes de la 6e conf{\'e}rence conjointe Journ{\'e}es d'{\'E}tudes sur la Parole (JEP, 31e {\'e}dition), Traitement Automatique des Langues Naturelles (TALN, 27e {\'e}dition), Rencontre des {\'E}tudiants Chercheurs en Informatique pour le Traitement Automatique des Langues (R{\'E}CITAL, 22e {\'e}dition). Volume 2: Traitement Automatique des Langues Naturelles},
+  pages         = {268--278},
+  year          = {2020},
+  organization  = {ATALA}
+}
+```
+
+<!-- ```
 @misc{le2019flaubert,
     title={FlauBERT: Unsupervised Language Model Pre-training for French},
     author={Hang Le and Loïc Vial and Jibril Frej and Vincent Segonne and Maximin Coavoux and Benjamin Lecouteux and Alexandre Allauzen and Benoît Crabbé and Laurent Besacier and Didier Schwab},
@@ -488,4 +515,4 @@ If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if
     archivePrefix={arXiv},
     primaryClass={cs.CL}
 }
-```
+``` -->
