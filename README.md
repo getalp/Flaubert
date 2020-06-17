@@ -56,8 +56,9 @@ After the installation you can use FlauBERT in a native way: -->
 import torch
 from transformers import FlaubertModel, FlaubertTokenizer
 
-# Choose among ['flaubert-small-cased', 'flaubert-base-uncased', 'flaubert-base-cased', 'flaubert-large-cased']
-modelname = 'flaubert-base-cased' 
+# Choose among ['flaubert/flaubert_small_cased', 'flaubert/flaubert_base_uncased', 
+#               'flaubert/flaubert_base_cased', 'flaubert/flaubert_large_cased']
+modelname = 'flaubert/flaubert_base_cased' 
 
 # Load pretrained model and tokenizer
 flaubert, log = FlaubertModel.from_pretrained(modelname, output_loading_info=True)
@@ -73,6 +74,13 @@ print(last_layer.shape)
 
 # The BERT [CLS] token correspond to the first hidden state of the last layer
 cls_embedding = last_layer[:, 0, :]
+```
+
+**Notes:** if your `transformers` version is <=2.10.0, `modelname` should take one
+of the following values:
+
+```
+['flaubert-small-cased', 'flaubert-base-uncased', 'flaubert-base-cased', 'flaubert-large-cased']
 ```
 
 <!-- A Hugging Face's [`transformers`](https://github.com/huggingface/transformers) compatible version of FlauBERT-BASE is available for download [here](https://zenodo.org/record/3567594#.Xe4Zmi2ZN0t), in an archive named `xlm_bert_fra_base_lower.tar`.
