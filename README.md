@@ -183,9 +183,10 @@ print(tensor.size())
 # 3. Pre-training FlauBERT
 
 ### Install dependencies
-You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder):
+You should clone this repo and then install [WikiExtractor](https://github.com/attardi/wikiextractor), [fastBPE](https://github.com/facebookresearch/XLM/tree/master/tools#fastbpe) and [Moses tokenizer](https://github.com/moses-smt/mosesdecoder) under `tools`:
 ```bash
 git clone https://github.com/getalp/Flaubert.git
+cd Flaubert
 
 # Install toolkit
 cd tools
