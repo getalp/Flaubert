@@ -1,1 +1,4 @@
-To evaluate Flaubert on French Verb Sense Disambiguation 
+The Verb Sense Disambiguation task is performed on the FrenchSemEval (FSE) evaluation dataset.
+This dataset (available here) contains:
+	-,hjj
+  
