@@ -294,9 +294,22 @@ Pretrained models for both FlauBERT and CamemBERT are available!
 
 # 5. Word Sense Disambiguation
 ## 5.1. Verb Sense Disambiguation
-The FrenchSemEval evaluation dataset is available at [this](http://www.llf.cnrs.fr/dataset/fse/) address.
+To evaluate Flaubert on the French Verb Sense Disambiguation task:
 
-**Code coming soon**
+  **1. Download the FrenchSemEval (FSE) dataset available [here](http://www.llf.cnrs.fr/dataset/fse/)** (called ```$FSE_DIR``` hereafter)
+  
+  **2. Prepare the data**
+  ```python
+  python prepare_data.py --data $FSE_DIR --output $DATA_DIR
+  ```
+  
+  **3. Run the model and evaluate with ```flue_vsd.py```**
+  ```python
+  python flue_vsd.py --exp_name myexp --model flaubert-base-cased --data $DATA_DIR --padding 80 --batchsize 32 --device 0 --output $OUTPUT_DIR
+  ```
+  You can use this script to evaluate either a pretrained-model or your own model (from checkpoint). Yet It has to be one of the Flaubert/Camembert/Bert class of the Hugginface API.
+  
+  See further options in the ```flue/wsd/verbs/``` directory.
 
 ## 5.2. Noun Sense Disambiguation
 
