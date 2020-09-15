@@ -5,13 +5,14 @@
  
  ## Dataset
  The dataset includes:
-  - Evaluation data: Manual annotations of verbs with senses from Wiktionary. The occurences of verbs were extracted from the French Wikipedia, the French Treebank [[2]]([#References]) and the Sequoia corpus [[3]](#References) .   
   - Training data: Examples extracted from the sense entries in Wiktionary (dump of the 04-20-2018 ).
+  - Evaluation data: Manual annotations of verbs with senses from Wiktionary. The occurences of verbs were extracted from the French Wikipedia, the French Treebank [[2]]([#References]) and the Sequoia corpus [[3]](#References) .   
+ 
   
 Both the training and evaluation data are in the format proposed in Raganato's WSD evaluation framework [[4]](#References) (http://lcl.uniroma1.it/wsdeval/ for more details).
 This format consists of:
- - a .data.xml file which contains the sentences in xml format
- - a .gold.key.txt file which contains the labels of the instances
+ - a ``.data.xml`` file which contains the sentences in xml format
+ - a ``.gold.key.txt`` file which contains the labels of the instances
 
 
 ## Disambiguation process
