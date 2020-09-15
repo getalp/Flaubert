@@ -1,7 +1,7 @@
 # French Verb Sense Disambiguation
  ## Task Description
  Verb Sense Disambiguation (VSD) is a subpart of the Word Sense Disambiguation (WSD) task where only verbs are the target of the disambiguation.
- We used the FrenchSemEval (FSE) dataset [[1]](#References) to evaluate our model on this task for french. 
+ We used the FrenchSemEval (FSE) dataset [[1]](#References) to evaluate our model on this task for French. 
  
  ## Dataset
  The dataset includes:
