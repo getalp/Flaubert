@@ -6,7 +6,7 @@
  ## Dataset
  The dataset includes:
   - Training data: Examples extracted from the sense entries in Wiktionary (dump of the 04-20-2018 ).
-  - Evaluation data: Manual annotations of verbs with senses from Wiktionary. The occurences of verbs were extracted from the French Wikipedia, the French Treebank [[2]]([#References]) and the Sequoia corpus [[3]](#References) .   
+  - Evaluation data: Manual annotations of verbs with senses from Wiktionary. The occurrences of verbs were extracted from the French Wikipedia, the French Treebank [[2]]([#References]) and the Sequoia corpus [[3]](#References) .   
  
   
 Both the training and evaluation data are in the format proposed in Raganato's WSD evaluation framework [[4]](#References) (http://lcl.uniroma1.it/wsdeval/ for more details).
@@ -17,7 +17,7 @@ This format consists of:
 
 ## Disambiguation process
 The disambiguation is performed following [[1]](#References):
- 1. We run the Flaubert model on the training / evaluation data to obtain contextual representations for the target occurences.
+ 1. We run the Flaubert model on the training / evaluation data to obtain contextual representations for the target occurrences.
  2. We compute sense representations by averaging the vector representations of their instances.
  3. We use a knn classifier based on cosine similarity to predict the labels of the evaluation instances by comparing them to the sense representations.
  
@@ -31,7 +31,7 @@ The disambiguation is performed following [[1]](#References):
   ```
   Options:
   
-  ``--train $OTHER_TRAIN_DIR``: To use other training data than Wiktionary (it must be in the same format described [above](#dataset). 
+  ``--train $OTHER_TRAIN_DIR``: To use other training data than Wiktionary (it must be in the same format described [above](#dataset)). 
 
 **3. Run the model and evaluate with ```flue_vsd.py```**
   ```python
@@ -41,34 +41,35 @@ Options:
 
  ``--exp_name [name]`` (str) : the name of the experiment.
  
- ``--model [name|path]`` (str) : name of the pretrained models (i.g 'flaubert-base-cased') or the path to a model checkpoint. If a checkpoint is specified, the model should be one of the Flaubert/Camembert/Bert class from the Hugginface API.
+ ``--model [name|path]`` (str) : name of the pretrained model (i.g 'flaubert-base-cased') or the path to a model checkpoint. The pretrained model or model checkpoint should be one of the Flaubert/Camembert/Bert class from the Hugginface API.
  
- ``--data [dirpath]`` (str) : path to the directory containing both subdirectoris ``train``and ``test``
+ ``--data [dirpath]`` (str) : path to the directory containing both subdirectories ``train``and ``test``
  
  ``--padding [n]`` (int) : pad sentences to length ``n``
  
  ``--batchsize [n]`` (int): the size of batches
  
- ``--device [n]`` (int) : to run the model on GPU. (default is -1).
+ ``--device [n]`` (int) : to run the model on GPU. (default -1 is CPU).
  
  ``--output [dirpath]`` : the dirpath where the vectors will be output
  
- ``--output_logs [path]`` (str) : path to output logs in .csv file
+ ``--output_logs [path]`` (str) : path to output logs (.csv file)
  
- ``--output_pred [path]`` (str): path to output prediction
+ ``--output_pred [path]`` (str): path to output the predictions (one ``instance_id \\t pred`` per line)
  
- ``--output_score [path]`` (str) : path to output score in .csv file (also print on stdout)
+ ``--output_score [path]`` (str) : path to output score (.csv file).
  
  
 ## Use other vectors
 It is possible to evaluate vectors from any other model than transformers. To do so:
 
-1. Dump vectors output by the model in ``$TRAIN_VECS``and ``$TEST_VECS`` files which format should be one ``instance_id \t vector `` per line.
+1. Dump the vectors output by the model in ``$TRAIN_VECS``and ``$TEST_VECS`` files which format should be one ``instance_id \t vector `` per line.
 
 2. Run ``wsd_evaluation.py``
 ```python
 python wsd_evaluation --exp_name myexp --train_data $TRAIN_DIR --train_vecs $TRAIN_VECS --test_data $TEST_DIR --test_vecs $TEST_VECS --average --target_pos V
 ```
+See online help for further details and options.
 
 # References
 [1] Segonne, V., Candito, M., and Crabb ́e, B. (2019). Usingwiktionary as a resource for wsd: the case of frenchverbs. *
