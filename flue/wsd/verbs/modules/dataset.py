@@ -10,7 +10,7 @@ class Instance:
     """ Class to represent an instance to be disambiguated """
 
     def __init__(self, id, sent_id=None, word_form=None, key=None, lemma=None, pos=None, tok_id=None, labels=None, first_label=None,
-                 source=None, is_mwe=False):
+                 source=None, is_mwe=False, context=None):
         self.id = id
         self.sent_id = sent_id
         self.word_form = word_form
@@ -22,6 +22,7 @@ class Instance:
         self.first_label = first_label
         self.source = source
         self.is_mwe = is_mwe
+        self.context = context
 
     def __str__(self):
 
@@ -127,7 +128,7 @@ class WSDDatasetReader:
 
 
     def read_from_data_dirs(self, data_dirs, target_pos=None, target_words=None, target_keys=None,
-                            ignore_source=[], keep_mwe=False):
+                            ignore_source=[], keep_mwe=False, add_context_to_instance=False):
         """ Read WSD data and return as WSDDataset """
 
         id2sent = {}
@@ -169,7 +170,7 @@ class WSDDatasetReader:
 
                     flag = False # use to check if annotated instance in sentence
 
-                    sent = next(sentences) # get sentence (raw or conll)
+                    sent = next(sentences) # get sentence
 
                     tok_idx = 0
 
@@ -215,6 +216,8 @@ class WSDDatasetReader:
                                                     first_label=target_first_label,
                                                     source=source, is_mwe=is_mwe)
 
+                                if add_context_to_instance:
+                                    instance.context = sent
 
                                 # add instance to dataset
                                 key2instances[key].append(instance)
