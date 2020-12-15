@@ -313,19 +313,19 @@ To evaluate Flaubert on the French Verb Sense Disambiguation task:
 
 ## 5.2. Noun Sense Disambiguation
 
-To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can follow the scripts located in the directory `flue/wsd/nouns`, which allow you to:
+To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can follow the scripts located in the directory [wsd/nouns](wsd/nouns), which allow you to:
 - Automatically download our publicly available dataset from [this address](https://zenodo.org/record/3549806)  
-  → See the script [0.get_data.sh](flue/wsd/nouns/0.get_data.sh)
+  → See the script [0.get_data.sh](wsd/nouns/0.get_data.sh)
 - Download the `disambiguate` toolkit from [this repository](https://github.com/getalp/disambiguate)  
-  → See the script [1.get_toolkit.sh](flue/wsd/nouns/1.get_toolkit.sh)
+  → See the script [1.get_toolkit.sh](wsd/nouns/1.get_toolkit.sh)
 - Prepare the training/development data from the French SemCor and French WordNet Gloss Corpus  
- → See the script [2.prepare_data.sh](flue/wsd/nouns/2.prepare_data.sh)
+ → See the script [2.prepare_data.sh](wsd/nouns/2.prepare_data.sh)
 - Train the neural model  (assumes that `$FLAUBERT_PATH` is the path to a Flaubert model)  
-  → See the script [3.train_model.sh](flue/wsd/nouns/3.train_model.sh)
+  → See the script [3.train_model.sh](wsd/nouns/3.train_model.sh)
 - Evaluate the model on the French SemEval 2013 task 12 corpus  
-  → See the script [4.evaluate_model.sh](flue/wsd/nouns/4.evaluate_model.sh)
+  → See the script [4.evaluate_model.sh](wsd/nouns/4.evaluate_model.sh)
   
-Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh)
+Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](wsd/nouns/5.disambiguate.sh)
 
 <!-- # 6. Named Entity Recognition
 Coming soon.
