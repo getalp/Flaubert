@@ -487,6 +487,7 @@ Once the model is trained, you can disambiguate any text using the script [5.dis
 # 5. Video presentation
 
 You can watch this 7mn video presentation of FlauBERT
+[VIDEO 7mn] (https://www.youtube.com/watch?v=NgLM9GuwSwc)
 
 # 6. Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you find the resources in this repository useful, please cite one of the following papers:
