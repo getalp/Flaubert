@@ -484,8 +484,11 @@ To fine-tune Flaubert for French WSD with WordNet as sense inventory, you can fo
   
 Once the model is trained, you can disambiguate any text using the script [5.disambiguate.sh](flue/wsd/nouns/5.disambiguate.sh) -->
 
+# 5. Video presentation
 
-# 5. Citation
+You can watch this 7mn video presentation of FlauBERT
+
+# 6. Citation
 If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if you find the resources in this repository useful, please cite one of the following papers:
 
 [LREC paper](http://www.lrec-conf.org/proceedings/lrec2020/pdf/2020.lrec-1.302.pdf)
