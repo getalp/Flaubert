@@ -38,6 +38,8 @@ The pretrained models are available for download from [here](https://zenodo.org/
 
 Note: `flaubert-small-cased` is partially trained so performance is not guaranteed. Consider using it for debugging purpose only.
 
+We also provide the checkpoints from [here](https://www.dropbox.com/s/65f8unz1imz89ew/flaubert_checkpoints.tar.gz?dl=0) for model base (cased/uncased) and large (cased).
+
 # 2. Using FlauBERT
 In this section, we describe two ways to obtain sentence embeddings from pretrained FlauBERT models: either via [Hugging Face's Transformer](https://github.com/huggingface/transformers) library or via [Facebook's XLM library](https://github.com/facebookresearch/XLM). We will intergrate FlauBERT into [Facebook' fairseq](https://github.com/pytorch/fairseq) in the near future.
 
