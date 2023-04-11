@@ -531,3 +531,6 @@ If you use FlauBERT or the FLUE Benchmark for your scientific publication, or if
     primaryClass={cs.CL}
 }
 ``` -->
+
+### licence of the models
+The models can be accessed on Hugging Face and their license is listed as MIT.
